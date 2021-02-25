@@ -55,7 +55,7 @@ namespace ET
 			{
 				try
 				{
-					await session.Call(new C2M_Reload() {Account = account, Password = password});	
+					// await session.Call(new C2M_Reload() {Account = account, Password = password});	
 					Log.Info($"Reload服务端成功!");
 				}
 				catch (Exception e)

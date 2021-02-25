@@ -1,0 +1,11 @@
+{
+  "name": "com.aka.ui",
+  "displayName": "Aka UI",
+  "description": "ui\u6846\u67b6",
+  "version": "0.0.1-preview.1",
+  "unity": "2019.4",
+  "dependencies": {
+    "com.unity.addressables": "1.16.10"
+  },
+  "type": "library"
+}

@@ -3,190 +3,6 @@ using ProtoBuf;
 using System.Collections.Generic;
 namespace ET
 {
-	[Message(OuterOpcode.C2M_TestRequest)]
-	[ProtoContract]
-	public partial class C2M_TestRequest: IActorLocationRequest
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
-		[ProtoMember(1)]
-		public string request { get; set; }
-
-	}
-
-	[Message(OuterOpcode.M2C_TestResponse)]
-	[ProtoContract]
-	public partial class M2C_TestResponse: IActorLocationResponse
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(91)]
-		public int Error { get; set; }
-
-		[ProtoMember(92)]
-		public string Message { get; set; }
-
-		[ProtoMember(1)]
-		public string response { get; set; }
-
-	}
-
-	[Message(OuterOpcode.Actor_TransferRequest)]
-	[ProtoContract]
-	public partial class Actor_TransferRequest: IActorLocationRequest
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
-		[ProtoMember(1)]
-		public int MapIndex { get; set; }
-
-	}
-
-	[Message(OuterOpcode.Actor_TransferResponse)]
-	[ProtoContract]
-	public partial class Actor_TransferResponse: IActorLocationResponse
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(91)]
-		public int Error { get; set; }
-
-		[ProtoMember(92)]
-		public string Message { get; set; }
-
-	}
-
-	[Message(OuterOpcode.C2G_EnterMap)]
-	[ProtoContract]
-	public partial class C2G_EnterMap: IRequest
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-	}
-
-	[Message(OuterOpcode.G2C_EnterMap)]
-	[ProtoContract]
-	public partial class G2C_EnterMap: IResponse
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(91)]
-		public int Error { get; set; }
-
-		[ProtoMember(92)]
-		public string Message { get; set; }
-
-// 自己的unit id
-// 自己的unit id
-		[ProtoMember(1)]
-		public long UnitId { get; set; }
-
-// 所有的unit
-// 所有的unit
-		[ProtoMember(2)]
-		public List<UnitInfo> Units = new List<UnitInfo>();
-
-	}
-
-	[Message(OuterOpcode.UnitInfo)]
-	[ProtoContract]
-	public partial class UnitInfo
-	{
-		[ProtoMember(1)]
-		public long UnitId { get; set; }
-
-		[ProtoMember(2)]
-		public float X { get; set; }
-
-		[ProtoMember(3)]
-		public float Y { get; set; }
-
-		[ProtoMember(4)]
-		public float Z { get; set; }
-
-	}
-
-	[Message(OuterOpcode.M2C_CreateUnits)]
-	[ProtoContract]
-	public partial class M2C_CreateUnits: IActorMessage
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
-		[ProtoMember(1)]
-		public List<UnitInfo> Units = new List<UnitInfo>();
-
-	}
-
-	[Message(OuterOpcode.Frame_ClickMap)]
-	[ProtoContract]
-	public partial class Frame_ClickMap: IActorLocationMessage
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
-		[ProtoMember(94)]
-		public long Id { get; set; }
-
-		[ProtoMember(1)]
-		public float X { get; set; }
-
-		[ProtoMember(2)]
-		public float Y { get; set; }
-
-		[ProtoMember(3)]
-		public float Z { get; set; }
-
-	}
-
-	[Message(OuterOpcode.M2C_PathfindingResult)]
-	[ProtoContract]
-	public partial class M2C_PathfindingResult: IActorMessage
-	{
-		[ProtoMember(93)]
-		public long ActorId { get; set; }
-
-		[ProtoMember(1)]
-		public long Id { get; set; }
-
-		[ProtoMember(2)]
-		public float X { get; set; }
-
-		[ProtoMember(3)]
-		public float Y { get; set; }
-
-		[ProtoMember(4)]
-		public float Z { get; set; }
-
-		[ProtoMember(5)]
-		public List<float> Xs = new List<float>();
-
-		[ProtoMember(6)]
-		public List<float> Ys = new List<float>();
-
-		[ProtoMember(7)]
-		public List<float> Zs = new List<float>();
-
-	}
-
 	[Message(OuterOpcode.C2R_Ping)]
 	[ProtoContract]
 	public partial class C2R_Ping: IRequest
@@ -199,42 +15,6 @@ namespace ET
 	[Message(OuterOpcode.R2C_Ping)]
 	[ProtoContract]
 	public partial class R2C_Ping: IResponse
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(91)]
-		public int Error { get; set; }
-
-		[ProtoMember(92)]
-		public string Message { get; set; }
-
-	}
-
-	[Message(OuterOpcode.G2C_Test)]
-	[ProtoContract]
-	public partial class G2C_Test: IMessage
-	{
-	}
-
-	[Message(OuterOpcode.C2M_Reload)]
-	[ProtoContract]
-	public partial class C2M_Reload: IRequest
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(1)]
-		public string Account { get; set; }
-
-		[ProtoMember(2)]
-		public string Password { get; set; }
-
-	}
-
-	[Message(OuterOpcode.M2C_Reload)]
-	[ProtoContract]
-	public partial class M2C_Reload: IResponse
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
@@ -315,73 +95,61 @@ namespace ET
 		public string Message { get; set; }
 
 		[ProtoMember(1)]
-		public long PlayerId { get; set; }
+		public long UId { get; set; }
 
-	}
+		[ProtoMember(2)]
+		public string NickName { get; set; }
 
-	[Message(OuterOpcode.G2C_TestHotfixMessage)]
-	[ProtoContract]
-	public partial class G2C_TestHotfixMessage: IMessage
-	{
-		[ProtoMember(1)]
-		public string Info { get; set; }
+		[ProtoMember(3)]
+		public int Coin { get; set; }
 
-	}
-
-	[Message(OuterOpcode.C2M_TestActorRequest)]
-	[ProtoContract]
-	public partial class C2M_TestActorRequest: IActorLocationRequest
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(91)]
-		public long ActorId { get; set; }
-
-		[ProtoMember(1)]
-		public string Info { get; set; }
-
-	}
-
-	[Message(OuterOpcode.M2C_TestActorResponse)]
-	[ProtoContract]
-	public partial class M2C_TestActorResponse: IActorLocationResponse
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-		[ProtoMember(91)]
-		public int Error { get; set; }
-
-		[ProtoMember(92)]
-		public string Message { get; set; }
-
-		[ProtoMember(1)]
-		public string Info { get; set; }
+		[ProtoMember(4)]
+		public int RoomCard { get; set; }
 
 	}
 
 	[Message(OuterOpcode.PlayerInfo)]
 	[ProtoContract]
-	public partial class PlayerInfo: IMessage
+	public partial class PlayerInfo
+	{
+		[ProtoMember(1)]
+		public long UId { get; set; }
+
+		[ProtoMember(2)]
+		public string NickName { get; set; }
+
+		[ProtoMember(3)]
+		public int Coin { get; set; }
+
+		[ProtoMember(4)]
+		public int RoomCard { get; set; }
+
+	}
+
+	[Message(OuterOpcode.PlayerInfoRefresh)]
+	[ProtoContract]
+	public partial class PlayerInfoRefresh: IActorMessage
+	{
+		[ProtoMember(94)]
+		public long ActorId { get; set; }
+
+		[ProtoMember(1)]
+		public PlayerInfo Info { get; set; }
+
+	}
+
+	[Message(OuterOpcode.C2G_CreateRoomRequest)]
+	[ProtoContract]
+	public partial class C2G_CreateRoomRequest: IRequest
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
 
 	}
 
-	[Message(OuterOpcode.C2G_PlayerInfo)]
+	[Message(OuterOpcode.G2C_CreateRoomResponse)]
 	[ProtoContract]
-	public partial class C2G_PlayerInfo: IRequest
-	{
-		[ProtoMember(90)]
-		public int RpcId { get; set; }
-
-	}
-
-	[Message(OuterOpcode.G2C_PlayerInfo)]
-	[ProtoContract]
-	public partial class G2C_PlayerInfo: IResponse
+	public partial class G2C_CreateRoomResponse: IResponse
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
@@ -393,19 +161,216 @@ namespace ET
 		public string Message { get; set; }
 
 		[ProtoMember(1)]
-		public PlayerInfo PlayerInfo { get; set; }
+		public long RoomNum { get; set; }
+
+	}
+
+	[Message(OuterOpcode.C2G_EnterRoomRequest)]
+	[ProtoContract]
+	public partial class C2G_EnterRoomRequest: IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long RoomNum { get; set; }
+
+	}
+
+	[Message(OuterOpcode.G2C_EnterRoomResponse)]
+	[ProtoContract]
+	public partial class G2C_EnterRoomResponse: IResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+		[ProtoMember(1)]
+		public long RoomMaster { get; set; }
 
 		[ProtoMember(2)]
-		public List<PlayerInfo> PlayerInfos = new List<PlayerInfo>();
+		public int SeatIndex { get; set; }
+
+	}
+
+	[Message(OuterOpcode.C2G_ExitRoomRequest)]
+	[ProtoContract]
+	public partial class C2G_ExitRoomRequest: IRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public bool IsDestroyRoom { get; set; }
+
+	}
+
+	[Message(OuterOpcode.G2C_ExitRoomResponse)]
+	[ProtoContract]
+	public partial class G2C_ExitRoomResponse: IResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
+	[Message(OuterOpcode.C2M_RoomOpRequest)]
+	[ProtoContract]
+	public partial class C2M_RoomOpRequest: IActorLocationRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(93)]
+		public long ActorId { get; set; }
+
+		[ProtoMember(1)]
+		public int Op { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_RoomOpResponse)]
+	[ProtoContract]
+	public partial class M2C_RoomOpResponse: IActorLocationResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
+	[Message(OuterOpcode.RoomOpMessage)]
+	[ProtoContract]
+	public partial class RoomOpMessage: IActorMessage
+	{
+		[ProtoMember(94)]
+		public long ActorId { get; set; }
+
+		[ProtoMember(1)]
+		public int Op { get; set; }
+
+		[ProtoMember(2)]
+		public int SeatIndex { get; set; }
 
 		[ProtoMember(3)]
-		public List<string> TestRepeatedString = new List<string>();
+		public long UId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.PlayerEnterRoom)]
+	[ProtoContract]
+	public partial class PlayerEnterRoom: IActorMessage
+	{
+		[ProtoMember(94)]
+		public long ActorId { get; set; }
+
+		[ProtoMember(1)]
+		public PlayerInfo Info { get; set; }
+
+		[ProtoMember(2)]
+		public int SeatIndex { get; set; }
+
+		[ProtoMember(3)]
+		public bool Ready { get; set; }
+
+	}
+
+	[Message(OuterOpcode.PlayerExitRoom)]
+	[ProtoContract]
+	public partial class PlayerExitRoom: IActorMessage
+	{
+		[ProtoMember(94)]
+		public long ActorId { get; set; }
+
+		[ProtoMember(1)]
+		public long UId { get; set; }
+
+		[ProtoMember(2)]
+		public int SeatIndex { get; set; }
+
+	}
+
+	[Message(OuterOpcode.CardProto)]
+	[ProtoContract]
+	public partial class CardProto
+	{
+		[ProtoMember(1)]
+		public int Color { get; set; }
+
+		[ProtoMember(2)]
+		public int Weight { get; set; }
+
+	}
+
+	[Message(OuterOpcode.HandCardsMessage)]
+	[ProtoContract]
+	public partial class HandCardsMessage: IActorMessage
+	{
+		[ProtoMember(94)]
+		public long ActorId { get; set; }
+
+		[ProtoMember(1)]
+		public List<CardProto> Cards = new List<CardProto>();
+
+	}
+
+	[Message(OuterOpcode.TeamMessage)]
+	[ProtoContract]
+	public partial class TeamMessage: IActorMessage
+	{
+		[ProtoMember(94)]
+		public long ActorId { get; set; }
+
+		[ProtoMember(1)]
+		public int Team { get; set; }
+
+		[ProtoMember(2)]
+		public int SeatIndex { get; set; }
+
+	}
+
+	[Message(OuterOpcode.TurnMessage)]
+	[ProtoContract]
+	public partial class TurnMessage: IActorMessage
+	{
+		[ProtoMember(94)]
+		public long ActorId { get; set; }
+
+// 最后操作的人
+// 最后操作的人
+		[ProtoMember(1)]
+		public int LastOpSeat { get; set; }
+
+		[ProtoMember(2)]
+		public int LastOp { get; set; }
+
+		[ProtoMember(3)]
+		public int DeskSeat { get; set; }
 
 		[ProtoMember(4)]
-		public List<int> TestRepeatedInt32 = new List<int>();
+		public List<CardProto> DeskCards = new List<CardProto>();
 
 		[ProtoMember(5)]
-		public List<long> TestRepeatedInt64 = new List<long>();
+		public int DeskCardType { get; set; }
+
+		[ProtoMember(6)]
+		public int CurrentSeat { get; set; }
 
 	}
 

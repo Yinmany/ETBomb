@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <OutputPath>..\..\Bin\</OutputPath>
+      <DefineConstants>TRACE;SERVER;NOT_CLIENT;</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <OutputPath>..\..\Bin\</OutputPath>
+      <DefineConstants>TRACE;SERVER;NOT_CLIENT;</DefineConstants>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Game.Model\Game.Model.csproj" />
+      <ProjectReference Include="..\Hotfix\Server.Hotfix.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\HandCardsComponent.cs">
+        <Link>Map\Game\HandCardsComponent.cs</Link>
+      </Compile>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\Player\PlayerAwakeSystem.cs">
+        <Link>Map\Game\Player\PlayerAwakeSystem.cs</Link>
+      </Compile>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\Room\RoomAwakeSystem.cs">
+        <Link>Map\Game\Room\RoomAwakeSystem.cs</Link>
+      </Compile>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\Room\RoomDestroySystem.cs">
+        <Link>Map\Game\Room\RoomDestroySystem.cs</Link>
+      </Compile>
+    </ItemGroup>
+
+</Project>

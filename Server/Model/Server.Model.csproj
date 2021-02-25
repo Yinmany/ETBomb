@@ -22,6 +22,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Libs\**" />
+    <Compile Include="..\..\Unity\Assets\Model\Module\Message\NetOuterComponentSystem.cs">
+      <Link>Modules\Message\NetOuterComponentSystem.cs</Link>
+    </Compile>
     <Compile Include="..\..\Unity\Assets\Model\Base\Async\AsyncETTaskCompletedMethodBuilder.cs">
       <Link>Base\Async\AsyncETTaskCompletedMethodBuilder.cs</Link>
     </Compile>
@@ -241,11 +244,8 @@
     <Compile Include="..\..\Unity\Assets\Model\Module\Message\Network\TCP\PacketParser.cs" Link="Module\Message\Network\TCP\PacketParser.cs" />
     <Compile Include="..\..\Unity\Assets\Model\Module\Message\Network\TCP\TChannel.cs" Link="Module\Message\Network\TCP\TChannel.cs" />
     <Compile Include="..\..\Unity\Assets\Model\Module\Message\Network\TCP\TService.cs" Link="Module\Message\Network\TCP\TService.cs" />
-    <Compile Include="..\..\Unity\Assets\Model\Module\Message\Opcode.cs" Link="Module\Message\Opcode.cs" />
     <Compile Include="..\..\Unity\Assets\Model\Module\Message\OpcodeHelper.cs" Link="Module\Message\OpcodeHelper.cs" />
     <Compile Include="..\..\Unity\Assets\Model\Module\Message\OpcodeTypeComponent.cs" Link="Module\Message\OpcodeTypeComponent.cs" />
-    <Compile Include="..\..\Unity\Assets\Model\Module\Message\OuterMessage.cs" Link="Module\Message\OuterMessage.cs" />
-    <Compile Include="..\..\Unity\Assets\Model\Module\Message\OuterOpcode.cs" Link="Module\Message\OuterOpcode.cs" />
     <Compile Include="..\..\Unity\Assets\Model\Module\Message\ProtobufHelper.cs" Link="Module\Message\ProtobufHelper.cs" />
     <Compile Include="..\..\Unity\Assets\Model\Module\Message\RpcException.cs" Link="Module\Message\RpcException.cs" />
     <Compile Include="..\..\Unity\Assets\Model\Module\Message\Session.cs" Link="Module\Message\Session.cs" />

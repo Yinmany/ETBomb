@@ -1,10 +1,17 @@
 {
     "name": "Unity.Model",
     "references": [
-        "Unity.ThirdParty"
+        "Unity.ThirdParty",
+        "Unity.Addressables",
+        "Unity.ResourceManager"
     ],
-    "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],
-    "allowUnsafeCode": true
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

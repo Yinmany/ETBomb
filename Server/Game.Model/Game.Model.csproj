@@ -1,0 +1,65 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <OutputPath>..\..\Bin\</OutputPath>
+      <DefineConstants>TRACE;SERVER;NOT_CLIENT;</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <OutputPath>..\..\Bin\</OutputPath>
+      <DefineConstants>TRACE;SERVER;NOT_CLIENT;</DefineConstants>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Model\Server.Model.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\GameErrorCode.cs">
+        <Link>GameErrorCode.cs</Link>
+      </Compile>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\Card\AnalyseResult.cs">
+        <Link>Map\Game\Card\AnalyseResult.cs</Link>
+      </Compile>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\Card\Card.cs">
+        <Link>Map\Game\Card\Card.cs</Link>
+      </Compile>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\Card\CardsHelper.cs">
+        <Link>Map\Game\Card\CardsHelper.cs</Link>
+      </Compile>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\Card\CardTypes.cs">
+        <Link>Map\Game\Card\CardTypes.cs</Link>
+      </Compile>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\Player\Player.cs">
+        <Link>Map\Game\Player\Player.cs</Link>
+      </Compile>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\Room\GameControllerComponent.cs">
+        <Link>Map\Game\Room\GameControllerComponent.cs</Link>
+      </Compile>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\Room\Room.cs">
+        <Link>Map\Game\Room\Room.cs</Link>
+      </Compile>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\PopCardHelper.cs">
+        <Link>Map\Game\PopCardHelper.cs</Link>
+      </Compile>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\TeamComponent.cs">
+        <Link>Map\Game\TeamComponent.cs</Link>
+      </Compile>
+      <Compile Include="..\..\Unity\Assets\Model\Module\Message\OuterMessage.cs">
+        <Link>Message\OuterMessage.cs</Link>
+      </Compile>
+      <Compile Include="..\..\Unity\Assets\Model\Module\Message\OuterOpcode.cs">
+        <Link>Message\OuterOpcode.cs</Link>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Realm" />
+    </ItemGroup>
+
+</Project>

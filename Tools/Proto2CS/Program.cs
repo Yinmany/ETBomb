@@ -26,16 +26,17 @@ namespace ET
     {
         private const string protoPath = ".";
         private const string clientMessagePath = "../Unity/Assets/Model/Module/Message/";
-        private const string serverMessagePath = "../Server/Model/Module/Message/";
+        private const string serverMessagePath = "../Server/Game.Model/Message/";
         private static readonly char[] splitChars = { ' ', '\t' };
         private static readonly List<OpcodeInfo> msgOpcode = new List<OpcodeInfo>();
 
         public static void Proto2CS()
         {
+            // 0 - 9999框架内部使用
             msgOpcode.Clear();
             Proto2CS("ET", "InnerMessage.proto", serverMessagePath, "InnerOpcode", 10000);
             GenerateOpcode("ET", "InnerOpcode", serverMessagePath);
-            
+
             Proto2CS("ET", "OuterMessage.proto", clientMessagePath, "OuterOpcode", 20000);
             GenerateOpcode("ET", "OuterOpcode", clientMessagePath);
         }
@@ -232,7 +233,7 @@ namespace ET
                 string name = ss[1];
                 int n = int.Parse(ss[3]);
                 string typeCs = ConvertType(type);
-                
+
                 sb.Append($"\t\t[ProtoMember({n})]\n");
                 sb.Append($"\t\tpublic {typeCs} {name} {{ get; set; }}\n\n");
             }

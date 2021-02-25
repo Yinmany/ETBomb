@@ -3,7 +3,7 @@
 	/// <summary>
 	/// actor RPC消息响应
 	/// </summary>
-	[Message(Opcode.ActorResponse)]
+	[Message(ActorInnerOpcode.ActorResponse)]
 	public class ActorResponse : IActorLocationResponse
 	{
 		public int RpcId { get; set; }

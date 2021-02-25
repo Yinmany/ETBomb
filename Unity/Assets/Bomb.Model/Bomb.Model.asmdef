@@ -1,0 +1,19 @@
+{
+    "name": "Bomb.Model",
+    "rootNamespace": "Bomb",
+    "references": [
+        "GUID:997f003cfffd9ec4fae70c0ac9b0ec2b",
+        "GUID:f0bb8b5202925da4e85afef52b6de35a",
+        "GUID:84651a3751eca9349aac36a66bba901b",
+        "GUID:9e24947de15b9834991c9d8411ea37cf"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

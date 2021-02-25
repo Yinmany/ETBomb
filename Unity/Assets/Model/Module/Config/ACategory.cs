@@ -32,7 +32,10 @@ namespace ET
 
 			try
 			{
-				this.dict = ConfigHelper.ToObject<Dictionary<long, T>>(configStr);
+				if (configStr != null)
+				{
+					this.dict = ConfigHelper.ToObject<Dictionary<long, T>>(configStr);
+				}
 			}
 			catch (Exception e)
 			{
