@@ -21,5 +21,8 @@
         // 房间没有位置了
         public const int ERR_RoomNotSeat = 200001;
         public const int ERR_NotFoundRoom = 200002;
+        
+        // 无法出牌
+        public const int ERR_PlayCard = 200003;
     }
 }

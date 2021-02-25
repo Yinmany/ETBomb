@@ -188,6 +188,7 @@
      <Compile Include="Assets\Model\Base\Object\ObjectPool.cs" />
      <Compile Include="Assets\Model\Module\Message\Network\AChannel.cs" />
      <Compile Include="Assets\Model\Base\Async\ETTaskHelper.cs" />
+     <Compile Include="Assets\Model\Config\PromptTestConfig.cs" />
      <None Include="Assets\Model\Unity.Model.asmdef" />
  <Reference Include="UnityEngine">
  <HintPath>D:/DevTools/Unity/2020.2.6f1c1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

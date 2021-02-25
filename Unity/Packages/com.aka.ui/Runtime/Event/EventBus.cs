@@ -92,7 +92,6 @@ namespace AkaUI
 
                 // 每次只移除匹配的一个
                 removeIndex = i;
-                Debug.Log($"移除Listener:{tmp.Method.ToString()}");
                 break;
             }
 

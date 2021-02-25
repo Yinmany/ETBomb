@@ -20,11 +20,9 @@ namespace Bomb
         /// </summary>
         /// <param name="self"></param>
         /// <param name="cards">需要出的牌</param>
-        public static void Pop(this Player self, List<Card> cards)
+        public static bool Pop(this Player self, List<Card> cards)
         {
-            if (self.Room.GetComponent<GameControllerComponent>().Pop(self, cards))
-            {
-            }
+            return self.Room.GetComponent<GameControllerComponent>().Pop(self, cards);
         }
     }
 }

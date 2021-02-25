@@ -147,10 +147,11 @@ namespace Bomb
             self.LastOpSeat = player.SeatIndex;
 
             // 从玩家手牌中移除牌
-            var handCards = player.GetComponent<HandCardsComponent>().Cards;
+            var handCards = player.GetComponent<HandCardsComponent>();
+            handCards.Remove(cards);
+
             foreach (Card card in cards)
             {
-                handCards.Remove(card);
                 self.Cards.Add(card);
             }
 

@@ -18,7 +18,7 @@ namespace Bomb
         NotPlay
     }
 
-    public class Player: Entity
+    public partial class Player: Entity
     {
         public long UId { get; set; }
 

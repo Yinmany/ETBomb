@@ -1,5 +1,4 @@
-﻿
-namespace GameEventType
+﻿namespace GameEventType
 {
     /// <summary>
     /// 登录成功
@@ -44,7 +43,7 @@ namespace GameEventType
     public struct TeamChangedEvent
     {
     }
-    
+
     public struct ExitRoom
     {
     }
@@ -55,6 +54,14 @@ namespace GameEventType
 
     public struct TurnGameEvent
     {
+    }
 
+    /// <summary>
+    /// 玩家出牌事件
+    /// </summary>
+    public struct PlayerPlayCardEvent
+    {
+        // 出牌错误码
+        public int ErrorCode;
     }
 }

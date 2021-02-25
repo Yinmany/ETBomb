@@ -24,6 +24,7 @@ namespace Bomb.View
 		private Image _downImg;
 		private Button _headImage;
 		private GameObject _playCard;
+		private GameObject _notImage;
 
         protected override void OnInit()
         {
@@ -43,6 +44,7 @@ namespace Bomb.View
 			_downImg = View.Get<Image>("DownImg");
 			_headImage = View.Get<Button>("HeadImage");
 			_playCard = View.Get<GameObject>("PlayCard");
+			_notImage = View.Get<GameObject>("NotImage");
 
         }
     }

@@ -12,24 +12,23 @@ namespace Bomb
             {
                 case TurnMessage turnMessage:
                 {
-                    TimerComponent.Instance.NewOnceTimer(TimeHelper.Now() + RandomHelper.RandomNumber(2000, 4000), (timeout) =>
+                    TimerComponent.Instance.NewOnceTimer(TimeHelper.Now() + RandomHelper.RandomNumber(100, 1000), (timeout) =>
                     {
                         var game = player.Room.GetComponent<GameControllerComponent>();
                         if (player.SeatIndex == turnMessage.CurrentSeat)
                         {
-                            var handCards = player.GetComponent<HandCardsComponent>().Cards;
+                            var handCards = player.GetComponent<HandCardsComponent>();
                             self.Log("决定出牌.");
                             if (game.DeskCardsType == CardsType.None || game.DeskSeat == player.SeatIndex)
                             {
-                                game.Pop(player, new List<Card> { handCards[0] });
+                                game.Pop(player, new List<Card> { handCards.Cards[0] });
                             }
                             else
                             {
-                                List<PopCardHelper.PrompCards> prompCardsList =
-                                        PopCardHelper.Prompt(handCards, game.DeskCards, game.DeskCardsType);
-                                if (prompCardsList.Count > 0)
+                                List<Card> prompCardsList = handCards.GetPrompt();
+                                if (prompCardsList != null && prompCardsList.Count > 0)
                                 {
-                                    game.Pop(player, prompCardsList[0].Cards);
+                                    game.Pop(player, prompCardsList);
                                 }
                                 else
                                 {

@@ -121,6 +121,20 @@ message M2C_RoomOpResponse // IActorLocationResponse
     string Message = 92;
 }
 
+message C2M_PlayCardRequest // IActorLocationRequest
+{
+	int32 RpcId = 90;
+	int64 ActorId = 93;
+
+	repeated CardProto Cards = 1;
+}
+
+message M2C_PlayCardResponse // IActorLocationResponse
+{
+	int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+}
 
 message RoomOpMessage // IActorMessage
 {

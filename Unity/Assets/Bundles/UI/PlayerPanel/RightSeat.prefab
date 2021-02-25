@@ -157,10 +157,25 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -62
       objectReference: {fileID: 0}
+    - target: {fileID: 8887356142714489736, guid: 0313c5fbbd656b24f92a2eeb2b27ebdc,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887356142714489736, guid: 0313c5fbbd656b24f92a2eeb2b27ebdc,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887356142714489736, guid: 0313c5fbbd656b24f92a2eeb2b27ebdc,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -251.3
+      objectReference: {fileID: 0}
     - target: {fileID: 8915006906697435561, guid: 0313c5fbbd656b24f92a2eeb2b27ebdc,
         type: 3}
       propertyPath: m_Name
-      value: PlayerPanel1
+      value: RightSeat
       objectReference: {fileID: 0}
     - target: {fileID: 9041124554758670517, guid: 0313c5fbbd656b24f92a2eeb2b27ebdc,
         type: 3}
@@ -181,6 +196,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMin.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9041124554758670517, guid: 0313c5fbbd656b24f92a2eeb2b27ebdc,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9041124554758670517, guid: 0313c5fbbd656b24f92a2eeb2b27ebdc,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9041124554758670517, guid: 0313c5fbbd656b24f92a2eeb2b27ebdc,
         type: 3}

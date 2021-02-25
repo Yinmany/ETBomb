@@ -16,6 +16,8 @@ namespace Bomb
         private EventTrigger _eventTrigger;
         private static bool IsDrag { get; set; } // 是否在拖动
 
+        public static bool Lock { get; set; }
+
         void Awake()
         {
             _eventTrigger = gameObject.AddComponent<EventTrigger>();
@@ -123,6 +125,11 @@ namespace Bomb
 
         public void ChangeSelect()
         {
+            if (Lock)
+            {
+                return;
+            }
+
             RectTransform rect = (RectTransform) transform;
             if (IsSelect)
             {

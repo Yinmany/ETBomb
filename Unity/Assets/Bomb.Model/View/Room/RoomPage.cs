@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using AkaUI;
 using ET;
 using GameEventType;
@@ -14,7 +16,7 @@ namespace Bomb.View
         protected override void OnCreate()
         {
             // 测试按钮面板
-            this.AddPanel<TestButtonGroup>().handCards = this._handCardPanel;
+            this.AddPanel<TestButtonGroup>();
 
             this.handCardPanel = this.AddPanel<HandCardPanel>();
             CreatePlayerPanels();
@@ -25,6 +27,40 @@ namespace Bomb.View
             this._readyBtn.onClick.AddListener(() =>
                     LobbyPlayer.Ins.RoomOp(RoomOpType.Ready).Coroutine());
             this._notPopBtn.onClick.AddListener(() => { LobbyPlayer.Ins.RoomOp(RoomOpType.NotPlay).Coroutine(); });
+            this._promptBtn.onClick.AddListener(() =>
+            {
+                List<Card> cards = LocalPlayerComponent.Instance.Player.Promp();
+                handCardPanel.SelectPrompt(cards);
+            });
+
+            this._popBtn.onClick.AddListener(async () =>
+            {
+                if (CardComponent.Lock)
+                {
+                    return;
+                }
+
+                handCardPanel.Lock();
+
+                List<Card> cards = this.handCardPanel.GetSelectedCards();
+                try
+                {
+                    int errorCode = await LocalPlayerComponent.Instance.Player.Play(cards);
+                    if (errorCode == ErrorCode.ERR_Success)
+                    {
+                        // 出牌成功，移除手牌中的牌View
+                        this.handCardPanel.RemoveSelectedCard();
+                    }
+                    else
+                    {
+                        // TODO 根据错误码进行提示
+                    }
+                }
+                finally
+                {
+                    handCardPanel.UnLock();
+                }
+            });
 
             // Player事件
             this.Subscribe<PlayerRoomEvent>(On);
@@ -39,6 +75,7 @@ namespace Bomb.View
 
             var panel = GetPlayerPanel(game.LastOpSeat);
             panel.ShowPopTime(false);
+            panel.ShowNotImage(game.LastOp == GameOp.NotPlay);
 
             // 玩家出了牌
             if (game.LastOp == GameOp.Play)
@@ -49,7 +86,7 @@ namespace Bomb.View
             // 当前出牌的玩家
             var curPanel = GetPlayerPanel(game.CurrentSeat);
             curPanel.ClearPlayCards();
-
+            curPanel.ShowNotImage(false);
             ShowInteractionUI(false);
 
             // LocalPlayer出牌 显示按钮
@@ -106,7 +143,7 @@ namespace Bomb.View
             // 创建手牌
             var handCards = LocalPlayerComponent.Instance.Player.GetComponent<HandCardsComponent>().Cards;
             CardViewHelper.CreateCards(this._card, this._handCardPanel.transform, handCards);
-            this.handCardPanel.Show();
+            this.handCardPanel.Reflush();
 
             foreach (PlayerPanel playerPanel in playerPanels)
             {

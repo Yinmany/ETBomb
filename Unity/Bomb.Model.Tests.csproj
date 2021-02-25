@@ -56,6 +56,7 @@
      <Compile Include="Assets\Bomb.Model.Tests\PopCardHelperTests.cs" />
      <Compile Include="Assets\Bomb.Model.Tests\AnalyseResultTests.cs" />
      <Compile Include="Assets\Bomb.Model.Tests\CardTest.cs" />
+     <Compile Include="Assets\Bomb.Model.Tests\PromptTests.cs" />
      <None Include="Assets\Bomb.Model.Tests\Bomb.Model.Tests.asmdef" />
  <Reference Include="UnityEngine">
  <HintPath>D:/DevTools/Unity/2020.2.6f1c1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
@@ -653,6 +654,10 @@
     <ProjectReference Include="Bomb.Model.csproj">
       <Project>{7af9671c-0055-d978-866f-3bf360470e91}</Project>
       <Name>Bomb.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Model.csproj">
+      <Project>{9498bfb4-d9f5-c441-13e3-3f26f7700e29}</Project>
+      <Name>Unity.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

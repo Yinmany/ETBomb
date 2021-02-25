@@ -549,7 +549,7 @@ namespace Bomb
         /// <param name="cards"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static int GetWeight(this List<Card> cards, CardsType type)
+        public static int GetWeight(this IReadOnlyList<Card> cards, CardsType type)
         {
             int w = 0;
             switch (type)

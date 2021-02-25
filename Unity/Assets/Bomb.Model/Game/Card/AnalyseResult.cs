@@ -20,7 +20,7 @@ namespace Bomb
         /// </summary>
         /// <param name="cards"></param>
         /// <returns></returns>
-        public static List<AnalyseResult> Analyse(List<Card> cards)
+        public static List<AnalyseResult> Analyse(IReadOnlyList<Card> cards)
         {
             List<AnalyseResult> results = new List<AnalyseResult>();
             for (int i = 0; i < cards.Count; i++)

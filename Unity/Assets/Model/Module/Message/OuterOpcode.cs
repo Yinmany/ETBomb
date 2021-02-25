@@ -18,12 +18,14 @@ namespace ET
 		 public const ushort G2C_ExitRoomResponse = 20014;
 		 public const ushort C2M_RoomOpRequest = 20015;
 		 public const ushort M2C_RoomOpResponse = 20016;
-		 public const ushort RoomOpMessage = 20017;
-		 public const ushort PlayerEnterRoom = 20018;
-		 public const ushort PlayerExitRoom = 20019;
-		 public const ushort CardProto = 20020;
-		 public const ushort HandCardsMessage = 20021;
-		 public const ushort TeamMessage = 20022;
-		 public const ushort TurnMessage = 20023;
+		 public const ushort C2M_PlayCardRequest = 20017;
+		 public const ushort M2C_PlayCardResponse = 20018;
+		 public const ushort RoomOpMessage = 20019;
+		 public const ushort PlayerEnterRoom = 20020;
+		 public const ushort PlayerExitRoom = 20021;
+		 public const ushort CardProto = 20022;
+		 public const ushort HandCardsMessage = 20023;
+		 public const ushort TeamMessage = 20024;
+		 public const ushort TurnMessage = 20025;
 	}
 }

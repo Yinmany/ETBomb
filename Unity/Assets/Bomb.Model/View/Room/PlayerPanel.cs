@@ -79,6 +79,8 @@ namespace Bomb.View
 
             // 没有人时，可以进行换座位。
             this._headImage.onClick.AddListener(() => { Log.Debug($"点击换座位:{this._viewSeatIndex}"); });
+            
+            this._notImage.gameObject.SetActive(false);
         }
 
         public void StartGame()
@@ -110,6 +112,11 @@ namespace Bomb.View
             CardViewHelper.CreateCards(prefab, this._playCard.transform, cards);
         }
 
+        public void ShowNotImage(bool show = true)
+        {
+            this._notImage.gameObject.SetActive(show);
+        }
+        
         public void ClearPlayCards()
         {
             for (int i = 0; i < this._playCard.transform.childCount; i++)

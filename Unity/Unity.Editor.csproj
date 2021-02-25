@@ -64,6 +64,7 @@
      <Compile Include="Assets\Editor\ComponentViewEditor\TypeDrawer\EnumTypeDrawer.cs" />
      <Compile Include="Assets\Editor\ComponentViewEditor\TypeDrawer\Vector4TypeDrawer.cs" />
      <Compile Include="Assets\Editor\ComponentViewEditor\TypeDrawer\IntTypeDrawer.cs" />
+     <Compile Include="Assets\Editor\BootstrapEditor.cs" />
      <Compile Include="Assets\Editor\ComponentViewEditor\TypeDrawer\BoolTypeDrawer.cs" />
      <Compile Include="Assets\Editor\ComponentViewEditor\TypeDrawer\BoundsTypeDrawer.cs" />
      <Compile Include="Assets\Editor\ComponentViewEditor\TypeDrawer\RectTypeDrawer.cs" />
@@ -82,7 +83,7 @@
      <Compile Include="Assets\Editor\RsyncEditor\RsyncConfig.cs" />
      <Compile Include="Assets\Editor\ServerManagerEditor\ServerManagerEditor.cs" />
      <Compile Include="Assets\Editor\ComponentViewEditor\TypeDrawer\StringTypeDrawer.cs" />
-     <Compile Include="Assets\Editor\BootstrapEditor.cs" />
+     <Compile Include="Assets\Editor\LogRedirection.cs" />
      <None Include="Assets\Editor\Unity.Editor.asmdef" />
  <Reference Include="UnityEngine">
  <HintPath>D:/DevTools/Unity/2020.2.6f1c1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
