@@ -18,10 +18,10 @@ namespace Tests
             deskCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._3 });
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._3 });
 
-            CardsType handCardType = CardsType.None;
-            handCards.TryGetCardsType(out handCardType);
-            CardsType deskCardType = CardsType.None;
-            deskCards.TryGetCardsType(out deskCardType);
+            CardType handCardType = CardType.None;
+            handCards.TryGetCardType(out handCardType);
+            CardType deskCardType = CardType.None;
+            deskCards.TryGetCardType(out deskCardType);
 
             bool result = handCards.Pop(handCardType, deskCards, deskCardType);
             Assert.IsFalse(result);
@@ -40,10 +40,10 @@ namespace Tests
             deskCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._3 });
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._4 });
 
-            CardsType handCardType = CardsType.None;
-            handCards.TryGetCardsType(out handCardType);
-            CardsType deskCardType = CardsType.None;
-            deskCards.TryGetCardsType(out deskCardType);
+            CardType handCardType = CardType.None;
+            handCards.TryGetCardType(out handCardType);
+            CardType deskCardType = CardType.None;
+            deskCards.TryGetCardType(out deskCardType);
 
             bool result = handCards.Pop(handCardType, deskCards, deskCardType);
             Assert.IsTrue(result);
@@ -65,10 +65,10 @@ namespace Tests
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._4 });
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._4 });
 
-            CardsType handCardType = CardsType.None;
-            handCards.TryGetCardsType(out handCardType);
-            CardsType deskCardType = CardsType.None;
-            deskCards.TryGetCardsType(out deskCardType);
+            CardType handCardType = CardType.None;
+            handCards.TryGetCardType(out handCardType);
+            CardType deskCardType = CardType.None;
+            deskCards.TryGetCardType(out deskCardType);
 
             bool result = handCards.Pop(handCardType, deskCards, deskCardType);
             Assert.IsTrue(result);
@@ -92,10 +92,10 @@ namespace Tests
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight.SJoker });
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight.LJoker });
 
-            CardsType handCardType = CardsType.None;
-            handCards.TryGetCardsType(out handCardType);
-            CardsType deskCardType = CardsType.None;
-            deskCards.TryGetCardsType(out deskCardType);
+            CardType handCardType = CardType.None;
+            handCards.TryGetCardType(out handCardType);
+            CardType deskCardType = CardType.None;
+            deskCards.TryGetCardType(out deskCardType);
 
             bool result = handCards.Pop(handCardType, deskCards, deskCardType);
             Assert.IsTrue(result);
@@ -120,10 +120,10 @@ namespace Tests
 
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._3 });
 
-            CardsType handCardType = CardsType.None;
-            handCards.TryGetCardsType(out handCardType);
-            CardsType deskCardType = CardsType.None;
-            deskCards.TryGetCardsType(out deskCardType);
+            CardType handCardType = CardType.None;
+            handCards.TryGetCardType(out handCardType);
+            CardType deskCardType = CardType.None;
+            deskCards.TryGetCardType(out deskCardType);
 
             bool result = handCards.Pop(handCardType, deskCards, deskCardType);
             Assert.IsFalse(result);
@@ -142,10 +142,10 @@ namespace Tests
             deskCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight.A });
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._2 });
 
-            CardsType handCardType = CardsType.None;
-            handCards.TryGetCardsType(out handCardType);
-            CardsType deskCardType = CardsType.None;
-            deskCards.TryGetCardsType(out deskCardType);
+            CardType handCardType = CardType.None;
+            handCards.TryGetCardType(out handCardType);
+            CardType deskCardType = CardType.None;
+            deskCards.TryGetCardType(out deskCardType);
 
             bool result = handCards.Pop(handCardType, deskCards, deskCardType);
             Assert.IsTrue(result);
@@ -164,10 +164,10 @@ namespace Tests
             deskCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._2 });
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight.SJoker });
 
-            CardsType handCardType = CardsType.None;
-            handCards.TryGetCardsType(out handCardType);
-            CardsType deskCardType = CardsType.None;
-            deskCards.TryGetCardsType(out deskCardType);
+            CardType handCardType = CardType.None;
+            handCards.TryGetCardType(out handCardType);
+            CardType deskCardType = CardType.None;
+            deskCards.TryGetCardType(out deskCardType);
 
             bool result = handCards.Pop(handCardType, deskCards, deskCardType);
             Assert.IsTrue(result);
@@ -189,10 +189,10 @@ namespace Tests
             // handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight.SJoker });
             // handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight.LJoker });
 
-            CardsType handCardType = CardsType.None;
-            handCards.TryGetCardsType(out handCardType);
-            CardsType deskCardType = CardsType.None;
-            deskCards.TryGetCardsType(out deskCardType);
+            CardType handCardType = CardType.None;
+            handCards.TryGetCardType(out handCardType);
+            CardType deskCardType = CardType.None;
+            deskCards.TryGetCardType(out deskCardType);
 
             bool result = handCards.Pop(handCardType, deskCards, deskCardType);
             Assert.IsTrue(result);
@@ -214,10 +214,10 @@ namespace Tests
             // handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight.SJoker });
             // handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight.LJoker });
 
-            CardsType handCardType = CardsType.None;
-            handCards.TryGetCardsType(out handCardType);
-            CardsType deskCardType = CardsType.None;
-            deskCards.TryGetCardsType(out deskCardType);
+            CardType handCardType = CardType.None;
+            handCards.TryGetCardType(out handCardType);
+            CardType deskCardType = CardType.None;
+            deskCards.TryGetCardType(out deskCardType);
 
             bool result = handCards.Pop(handCardType, deskCards, deskCardType);
             Assert.IsTrue(result);
@@ -235,10 +235,10 @@ namespace Tests
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._2 });
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._2 });
 
-            CardsType handCardType = CardsType.None;
-            handCards.TryGetCardsType(out handCardType);
-            CardsType deskCardType = CardsType.None;
-            deskCards.TryGetCardsType(out deskCardType);
+            CardType handCardType = CardType.None;
+            handCards.TryGetCardType(out handCardType);
+            CardType deskCardType = CardType.None;
+            deskCards.TryGetCardType(out deskCardType);
 
             bool result = handCards.Pop(handCardType, deskCards, deskCardType);
             Assert.IsTrue(result);
@@ -259,10 +259,10 @@ namespace Tests
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._2 });
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight.SJoker });
 
-            CardsType handCardType = CardsType.None;
-            handCards.TryGetCardsType(out handCardType);
-            CardsType deskCardType = CardsType.None;
-            deskCards.TryGetCardsType(out deskCardType);
+            CardType handCardType = CardType.None;
+            handCards.TryGetCardType(out handCardType);
+            CardType deskCardType = CardType.None;
+            deskCards.TryGetCardType(out deskCardType);
 
             bool result = handCards.Pop(handCardType, deskCards, deskCardType);
             Assert.IsTrue(result);
@@ -282,10 +282,10 @@ namespace Tests
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._2 });
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._2 });
 
-            CardsType handCardType = CardsType.None;
-            handCards.TryGetCardsType(out handCardType);
-            CardsType deskCardType = CardsType.None;
-            deskCards.TryGetCardsType(out deskCardType);
+            CardType handCardType = CardType.None;
+            handCards.TryGetCardType(out handCardType);
+            CardType deskCardType = CardType.None;
+            deskCards.TryGetCardType(out deskCardType);
 
             bool result = handCards.Pop(handCardType, deskCards, deskCardType);
             Assert.IsTrue(result);
@@ -306,10 +306,10 @@ namespace Tests
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight.LJoker });
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight.LJoker });
 
-            CardsType handCardType = CardsType.None;
-            handCards.TryGetCardsType(out handCardType);
-            CardsType deskCardType = CardsType.None;
-            deskCards.TryGetCardsType(out deskCardType);
+            CardType handCardType = CardType.None;
+            handCards.TryGetCardType(out handCardType);
+            CardType deskCardType = CardType.None;
+            deskCards.TryGetCardType(out deskCardType);
 
             bool result = handCards.Pop(handCardType, deskCards, deskCardType);
             Assert.IsTrue(result);
@@ -331,10 +331,10 @@ namespace Tests
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight.A });
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight.A });
 
-            CardsType handCardType = CardsType.None;
-            handCards.TryGetCardsType(out handCardType);
-            CardsType deskCardType = CardsType.None;
-            deskCards.TryGetCardsType(out deskCardType);
+            CardType handCardType = CardType.None;
+            handCards.TryGetCardType(out handCardType);
+            CardType deskCardType = CardType.None;
+            deskCards.TryGetCardType(out deskCardType);
 
             bool result = handCards.Pop(handCardType, deskCards, deskCardType);
             Assert.IsTrue(result);
@@ -356,10 +356,10 @@ namespace Tests
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._2 });
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._2 });
 
-            CardsType handCardType = CardsType.None;
-            handCards.TryGetCardsType(out handCardType);
-            CardsType deskCardType = CardsType.None;
-            deskCards.TryGetCardsType(out deskCardType);
+            CardType handCardType = CardType.None;
+            handCards.TryGetCardType(out handCardType);
+            CardType deskCardType = CardType.None;
+            deskCards.TryGetCardType(out deskCardType);
 
             bool result = handCards.Pop(handCardType, deskCards, deskCardType);
             Assert.IsFalse(result);
@@ -383,10 +383,10 @@ namespace Tests
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight.A });
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._2 });
 
-            CardsType handCardType = CardsType.None;
-            handCards.TryGetCardsType(out handCardType);
-            CardsType deskCardType = CardsType.None;
-            deskCards.TryGetCardsType(out deskCardType);
+            CardType handCardType = CardType.None;
+            handCards.TryGetCardType(out handCardType);
+            CardType deskCardType = CardType.None;
+            deskCards.TryGetCardType(out deskCardType);
 
             bool result = handCards.Pop(handCardType, deskCards, deskCardType);
             Assert.IsTrue(result);
@@ -410,10 +410,10 @@ namespace Tests
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight.A });
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._2 });
 
-            CardsType handCardType = CardsType.None;
-            handCards.TryGetCardsType(out handCardType);
-            CardsType deskCardType = CardsType.None;
-            deskCards.TryGetCardsType(out deskCardType);
+            CardType handCardType = CardType.None;
+            handCards.TryGetCardType(out handCardType);
+            CardType deskCardType = CardType.None;
+            deskCards.TryGetCardType(out deskCardType);
 
             bool result = handCards.Pop(handCardType, deskCards, deskCardType);
             Assert.IsTrue(result);
@@ -449,10 +449,10 @@ namespace Tests
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight.A });
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight.A });
 
-            CardsType handCardType = CardsType.None;
-            handCards.TryGetCardsType(out handCardType);
-            CardsType deskCardType = CardsType.None;
-            deskCards.TryGetCardsType(out deskCardType);
+            CardType handCardType = CardType.None;
+            handCards.TryGetCardType(out handCardType);
+            CardType deskCardType = CardType.None;
+            deskCards.TryGetCardType(out deskCardType);
 
             bool result = handCards.Pop(handCardType, deskCards, deskCardType);
             Assert.IsTrue(result);
@@ -476,10 +476,10 @@ namespace Tests
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight.K });
             handCards.Add(new Card { Color = CardColor.Club, Weight = CardWeight.A });
 
-            CardsType handCardType = CardsType.None;
-            handCards.TryGetCardsType(out handCardType);
-            CardsType deskCardType = CardsType.None;
-            deskCards.TryGetCardsType(out deskCardType);
+            CardType handCardType = CardType.None;
+            handCards.TryGetCardType(out handCardType);
+            CardType deskCardType = CardType.None;
+            deskCards.TryGetCardType(out deskCardType);
 
             bool result = handCards.Pop(handCardType, deskCards, deskCardType);
             Assert.IsTrue(result);

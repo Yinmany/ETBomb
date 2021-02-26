@@ -10,6 +10,8 @@ namespace Bomb
         {
             response.RoomNum = RoomManager.Instance.GetId();
             reply();
+            
+            await ETTask.CompletedTask;
         }
     }
 }

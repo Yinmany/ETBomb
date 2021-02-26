@@ -1,17 +1,15 @@
 ﻿using System.Collections.Generic;
 
-namespace Bomb
+namespace Bomb.CardPrompt
 {
     /// <summary>
-    /// 提示管道
+    /// 提示分析器
     /// </summary>
-    public class CardPromptPipline
+    public class CardPromptAnalysis: LinkedList<IAnalyzer>
     {
         private List<PrompCards> prompCardsList;
 
         public IReadOnlyList<PrompCards> PrompCardsList => this.prompCardsList;
-
-        public LinkedList<ICardPromptPiplineHandler> Handlers { get; } = new LinkedList<ICardPromptPiplineHandler>();
 
         public void SetPrompCardsList(List<PrompCards> list)
         {
@@ -24,7 +22,7 @@ namespace Bomb
         /// <param name="handCards"></param>
         /// <param name="target"></param>
         /// <param name="targetType"></param>
-        public void Run(List<Card> handCards, List<Card> target, CardsType targetType)
+        public void Run(List<Card> handCards, List<Card> target, CardType targetType)
         {
             if (this.prompCardsList == null)
             {
@@ -35,15 +33,15 @@ namespace Bomb
             this.prompCardsList.Clear();
 
             // 创建提示上下文
-            CardPromptPiplineContext context = new CardPromptPiplineContext(this, this.prompCardsList, handCards, target, targetType);
-            foreach (ICardPromptPiplineHandler handler in this.Handlers)
+            AnalysisContext context = new AnalysisContext(this, this.prompCardsList, handCards, target, targetType);
+            foreach (IAnalyzer handler in this)
             {
                 if (handler.Check(targetType))
                 {
                     handler.Invoke(context);
                 }
             }
-            
+
             // 提示结果按照权重排序
             this.prompCardsList.Sort();
         }

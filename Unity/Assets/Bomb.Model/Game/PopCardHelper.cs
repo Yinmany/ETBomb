@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Bomb
@@ -13,13 +12,13 @@ namespace Bomb
         public IReadOnlyList<Card> PopCards;
 
         // 出牌的牌型
-        public CardsType PopCardsType;
+        public CardType PopCardType;
 
         // 桌上的牌
         public IReadOnlyList<Card> DesktopCards;
 
         // 桌上的牌型
-        public CardsType DesktopCardsType;
+        public CardType DesktopCardType;
     }
 
     /// <summary>
@@ -32,18 +31,18 @@ namespace Bomb
             // 前置验证
 
             // 不能单独出王
-            if (!CheckRuleJoker(info.PopCards, info.PopCardsType))
+            if (!CheckRuleJoker(info.PopCards, info.PopCardType))
             {
                 return false;
             }
 
             // 三不带，需要手牌小于5张才能出
-            if (info.PopCardsType == CardsType.OnlyThree && !CheckRuleOnlyThree(info.HandCards, info.PopCardsType))
+            if (info.PopCardType == CardType.OnlyThree && !CheckRuleOnlyThree(info.HandCards, info.PopCardType))
             {
                 return false;
             }
 
-            return Pop(info.PopCards, info.PopCardsType, info.DesktopCards, info.DesktopCardsType);
+            return Pop(info.PopCards, info.PopCardType, info.DesktopCards, info.DesktopCardType);
         }
 
         /// <summary>
@@ -52,27 +51,27 @@ namespace Bomb
         /// <param name="self">出的牌</param>
         /// <param name="cards">牌桌上的牌</param>
         /// <param name="selfType">出的牌的牌型</param>
-        /// <param name="cardsType">牌桌上的牌型</param>
+        /// <param name="cardType">牌桌上的牌型</param>
         /// <returns></returns>
-        public static bool Pop(this IReadOnlyList<Card> self, CardsType selfType, IReadOnlyList<Card> cards, CardsType cardsType)
+        public static bool Pop(this IReadOnlyList<Card> self, CardType selfType, IReadOnlyList<Card> cards, CardType cardType)
         {
             // 无法验证的牌型，直接不通过.
-            if (selfType == CardsType.None || cardsType == CardsType.None)
+            if (selfType == CardType.None || cardType == CardType.None)
             {
                 return false;
             }
 
             int a = self.GetWeight(selfType);
-            int b = cards.GetWeight(cardsType);
+            int b = cards.GetWeight(cardType);
 
             // 炸弹通吃, 只需要权重大于桌上的牌就行。
-            if (selfType == CardsType.JokerBoom || selfType == CardsType.Boom)
+            if (selfType == CardType.JokerBoom || selfType == CardType.Boom)
             {
                 return a > b;
             }
 
             // 剩下的都需要牌型一致, 频断权重即可。
-            if (selfType == cardsType)
+            if (selfType == cardType)
             {
                 return a > b;
             }
@@ -86,27 +85,27 @@ namespace Bomb
         /// <param name="handCardCount">手牌个数</param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static bool CheckRuleOnlyThree(int handCardCount, CardsType type)
+        public static bool CheckRuleOnlyThree(int handCardCount, CardType type)
         {
             return handCardCount < 5;
         }
 
         // 王：王分大小，可以充当任意牌；当手上有四个或四个以上相同的牌时，王才可以当“宝”用，但不能与其它牌配成五十K用，四个王是最大的八炸。  
         // 王只能当宝用，不能单独出，但4个王可以当最大的8炸出。
-        public static bool CheckRuleJoker(IReadOnlyList<Card> cards, CardsType type)
+        public static bool CheckRuleJoker(IReadOnlyList<Card> cards, CardType type)
         {
-            if (type == CardsType.JokerBoom)
+            if (type == CardType.JokerBoom)
             {
                 return true;
             }
 
             switch (type)
             {
-                case CardsType.Single:
-                case CardsType.Double:
-                case CardsType.OnlyThree:
-                case CardsType.ThreeAndTwo:
-                case CardsType.TripleStraight:
+                case CardType.Single:
+                case CardType.Double:
+                case CardType.OnlyThree:
+                case CardType.ThreeAndTwo:
+                case CardType.TripleStraight:
                     bool isJoker = cards.Any(CardsHelper.IsJoker);
                     if (isJoker)
                     {
@@ -117,90 +116,6 @@ namespace Bomb
             }
 
             return true;
-        }
-
-        /// <summary>
-        /// 提示出牌
-        /// 根据目标牌型，提示能出的牌。
-        /// </summary>
-        /// <param name="handCards"></param>
-        /// <param name="target"></param>
-        /// <param name="targetType"></param>
-        /// <param name="defaultPrompCardsList"></param>
-        /// <returns></returns>
-        public static List<PrompCards> Prompt(List<Card> handCards, List<Card> target, CardsType targetType,
-        List<PrompCards> defaultPrompCardsList = null)
-        {
-            List<PrompCards> prompCardsList = defaultPrompCardsList;
-            if (prompCardsList == null)
-            {
-                prompCardsList = new List<PrompCards>();
-            }
-            else
-            {
-                prompCardsList.Clear();
-            }
-
-            List<AnalyseResult> analyseResults = AnalyseResult.Analyse(handCards);
-
-            switch (targetType)
-            {
-                case CardsType.None:
-                    break;
-                case CardsType.Single:
-                {
-
-
-                    break;
-                }
-                case CardsType.Double:
-                {
-
-                    break;
-                }
-                case CardsType.OnlyThree:
-                {
-                    
-                    break;
-                }
-                case CardsType.DoubleStraight:
-                {
-                   
-
-                    break;
-                }
-                case CardsType.ThreeAndTwo:
-                {
-                   
-
-                    break;
-                }
-                case CardsType.TripleStraight:
-                {
-                    
-
-                    break;
-                }
-                case CardsType.Straight:
-                {
-                   
-
-                    break;
-                }
-                case CardsType.Boom:
-                    break;
-                case CardsType.JokerBoom:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof (targetType), targetType, null);
-            }
-
-            return prompCardsList;
-        }
-
-        public static void PromptBom(List<AnalyseResult> analyseResults, List<Card> handCards, List<Card> target, CardsType targetType,
-        List<PrompCards> defaultPrompCardsList = null)
-        {
         }
     }
 }

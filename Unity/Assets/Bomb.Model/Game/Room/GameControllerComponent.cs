@@ -33,7 +33,7 @@ namespace Bomb
         // 桌上出的牌的座位号
         public int DeskSeat { get; set; }
 
-        public CardsType DeskCardsType { get; set; }
+        public CardType DeskCardType { get; set; }
 
         /// <summary>
         /// 最后操作的座位
@@ -44,5 +44,32 @@ namespace Bomb
         /// 最后的操作
         /// </summary>
         public GameOp LastOp { get; set; }
+
+        public bool RoundEnd { get; set; }
+
+        public override void Dispose()
+        {
+            if (this.IsDisposed)
+            {
+                return;
+            }
+
+            base.Dispose();
+
+            CurrentSeat = 0;
+            Count = 0;
+            IsDoubleEnd = false;
+            DeskCards = null;
+            DeskSeat = -1;
+            DeskCardType = CardType.None;
+            LastOpSeat = -1;
+            LastOp = GameOp.None;
+            this.RoundEnd = false;
+#if SERVER
+            Cards.Clear();
+            Win.Clear();
+            IsWindup = false;
+#endif
+        }
     }
 }

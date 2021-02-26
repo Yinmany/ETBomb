@@ -86,14 +86,13 @@ namespace Bomb
                 var item = this.View.transform.GetChild(i).GetComponent<CardComponent>();
                 item.NotCardSelect();
             }
-            
+
             foreach (Card card in cards)
             {
                 for (int i = 0; i < this.View.transform.childCount; i++)
                 {
                     var item = this.View.transform.GetChild(i).GetComponent<CardComponent>();
-                    item.NotCardSelect();
-                    if (item.Card.Equals(card))
+                    if (!item.IsSelect && item.Card.Equals(card))
                     {
                         item.CardSelect();
                         break;

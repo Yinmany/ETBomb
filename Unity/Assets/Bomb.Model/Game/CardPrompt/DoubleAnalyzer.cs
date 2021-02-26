@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Bomb.Handler
+namespace Bomb.CardPrompt
 {
-    public class DoubleHandler: ICardPromptPiplineHandler
+    public class DoubleAnalyzer: IAnalyzer
     {
-        public bool Check(CardsType targetType)
+        public bool Check(CardType targetType)
         {
-            return targetType == CardsType.Double;
+            return targetType == CardType.Double;
         }
 
-        public void Invoke(CardPromptPiplineContext context)
+        public void Invoke(AnalysisContext context)
         {
             // 符合2张的所有牌类
             List<AnalyseResult> doubleAnalyseResults = context.AnalyseResults.Where(f => f.Count >= 2 && !CardsHelper.IsJoker(f.Weight)).ToList();
@@ -18,7 +18,7 @@ namespace Bomb.Handler
             {
                 if (context.CheckPop(analyseResult.Cards))
                 {
-                    context.Add(new PrompCards { Cards = analyseResult.Cards.GetRange(0, 2), CardsType = context.TargetType });
+                    context.Add(new PrompCards { Cards = analyseResult.Cards.GetRange(0, 2), CardType = context.TargetType });
                 }
             }
         }

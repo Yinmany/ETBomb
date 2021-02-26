@@ -8,7 +8,7 @@ namespace Bomb
         /// 房间号
         /// </summary>
         public long Num { get; private set; }
-        
+
         /// <summary>
         /// 房主
         /// </summary>

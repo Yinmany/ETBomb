@@ -16,13 +16,8 @@ namespace ET
     [DefaultExecutionOrder(-100)]
     public class Bootstrap: MonoBehaviour
     {
-        [HideInInspector]
         public List<string> assemblyNames = new List<string>();
 
-#if UNITY_EDITOR
-        public AssemblyDefinitionAsset[] AssemblyDefinitionAssets = new AssemblyDefinitionAsset[0];
-#endif
-        
         private void Awake()
         {
             try

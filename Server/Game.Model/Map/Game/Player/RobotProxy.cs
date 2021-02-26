@@ -7,6 +7,6 @@ namespace Bomb
     /// </summary>
     public class RobotProxy: Entity
     {
-
+        public bool RoundEnd;
     }
 }

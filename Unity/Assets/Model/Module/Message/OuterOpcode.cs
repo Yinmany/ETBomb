@@ -27,5 +27,6 @@ namespace ET
 		 public const ushort HandCardsMessage = 20023;
 		 public const ushort TeamMessage = 20024;
 		 public const ushort TurnMessage = 20025;
+		 public const ushort RoundEndMessage = 20026;
 	}
 }

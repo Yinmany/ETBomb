@@ -21,9 +21,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\HandCardsComponent.cs">
-        <Link>Map\Game\HandCardsComponent.cs</Link>
-      </Compile>
       <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\Player\PlayerAwakeSystem.cs">
         <Link>Map\Game\Player\PlayerAwakeSystem.cs</Link>
       </Compile>
@@ -32,6 +29,9 @@
       </Compile>
       <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\Room\RoomDestroySystem.cs">
         <Link>Map\Game\Room\RoomDestroySystem.cs</Link>
+      </Compile>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\Room\RoomSystem.cs">
+        <Link>Map\Game\Room\RoomSystem.cs</Link>
       </Compile>
     </ItemGroup>
 

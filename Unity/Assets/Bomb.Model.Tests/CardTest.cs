@@ -177,22 +177,22 @@ namespace Tests
         {
             List<Card> cards = new List<Card>();
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._3 });
-            CardsHelper.TryGetCardsType(cards, out CardsType type);
-            Assert.AreEqual(type, CardsType.Single);
+            CardsHelper.TryGetCardType(cards, out CardType type);
+            Assert.AreEqual(type, CardType.Single);
 
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._3 });
-            CardsHelper.TryGetCardsType(cards, out type);
-            Assert.AreEqual(type, CardsType.Double);
+            CardsHelper.TryGetCardType(cards, out type);
+            Assert.AreEqual(type, CardType.Double);
 
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._2 });
-            CardsHelper.TryGetCardsType(cards, out type);
-            Assert.AreEqual(type, CardsType.None);
+            CardsHelper.TryGetCardType(cards, out type);
+            Assert.AreEqual(type, CardType.None);
 
             // 移除最后一个
             cards.RemoveAt(cards.Count - 1);
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._3 });
-            CardsHelper.TryGetCardsType(cards, out type);
-            Assert.AreEqual(type, CardsType.OnlyThree);
+            CardsHelper.TryGetCardType(cards, out type);
+            Assert.AreEqual(type, CardType.OnlyThree);
         }
 
         [Test]
@@ -203,26 +203,26 @@ namespace Tests
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._3 });
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._3 });
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._3 });
-            CardsHelper.TryGetCardsType(cards, out CardsType type);
-            Assert.AreEqual(type, CardsType.Boom);
+            CardsHelper.TryGetCardType(cards, out CardType type);
+            Assert.AreEqual(type, CardType.Boom);
 
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._3 });
-            CardsHelper.TryGetCardsType(cards, out type);
-            Assert.AreEqual(type, CardsType.Boom);
+            CardsHelper.TryGetCardType(cards, out type);
+            Assert.AreEqual(type, CardType.Boom);
 
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight.SJoker });
-            CardsHelper.TryGetCardsType(cards, out type);
-            Assert.AreEqual(type, CardsType.Boom);
+            CardsHelper.TryGetCardType(cards, out type);
+            Assert.AreEqual(type, CardType.Boom);
 
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight.LJoker });
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight.LJoker });
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight.SJoker });
-            CardsHelper.TryGetCardsType(cards, out type);
-            Assert.AreEqual(type, CardsType.Boom);
+            CardsHelper.TryGetCardType(cards, out type);
+            Assert.AreEqual(type, CardType.Boom);
 
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._4 });
-            CardsHelper.TryGetCardsType(cards, out type);
-            Assert.AreEqual(type, CardsType.None);
+            CardsHelper.TryGetCardType(cards, out type);
+            Assert.AreEqual(type, CardType.None);
         }
 
         [Test]
@@ -233,13 +233,13 @@ namespace Tests
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._3 });
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._5 });
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._5 });
-            CardsHelper.TryGetCardsType(cards, out CardsType type);
-            Assert.AreEqual(type, CardsType.None);
+            CardsHelper.TryGetCardType(cards, out CardType type);
+            Assert.AreEqual(type, CardType.None);
 
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._4 });
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._4 });
-            CardsHelper.TryGetCardsType(cards, out type);
-            Assert.AreEqual(type, CardsType.DoubleStraight);
+            CardsHelper.TryGetCardType(cards, out type);
+            Assert.AreEqual(type, CardType.DoubleStraight);
         }
 
         [Test]
@@ -250,12 +250,12 @@ namespace Tests
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._3 });
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._3 });
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._5 });
-            CardsHelper.TryGetCardsType(cards, out CardsType type);
-            Assert.AreEqual(type, CardsType.None);
+            CardsHelper.TryGetCardType(cards, out CardType type);
+            Assert.AreEqual(type, CardType.None);
 
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._3 });
-            CardsHelper.TryGetCardsType(cards, out type);
-            Assert.AreEqual(type, CardsType.ThreeAndTwo);
+            CardsHelper.TryGetCardType(cards, out type);
+            Assert.AreEqual(type, CardType.ThreeAndTwo);
         }
 
         [Test]
@@ -267,8 +267,8 @@ namespace Tests
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._5 });
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._6 });
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._7 });
-            CardsHelper.TryGetCardsType(cards, out CardsType type);
-            Assert.AreEqual(type, CardsType.Straight);
+            CardsHelper.TryGetCardType(cards, out CardType type);
+            Assert.AreEqual(type, CardType.Straight);
 
             cards.Clear();
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._10 });
@@ -276,12 +276,12 @@ namespace Tests
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight.Q });
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight.K });
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight.A });
-            CardsHelper.TryGetCardsType(cards, out type);
-            Assert.AreEqual(type, CardsType.Straight);
+            CardsHelper.TryGetCardType(cards, out type);
+            Assert.AreEqual(type, CardType.Straight);
 
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._2 });
-            CardsHelper.TryGetCardsType(cards, out type);
-            Assert.AreEqual(type, CardsType.None);
+            CardsHelper.TryGetCardType(cards, out type);
+            Assert.AreEqual(type, CardType.None);
         }
 
         [Test]
@@ -299,8 +299,8 @@ namespace Tests
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight.A });
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._3 });
             cards.Add(new Card { Color = CardColor.Club, Weight = CardWeight._4 });
-            CardsHelper.TryGetCardsType(cards, out CardsType type);
-            Assert.AreEqual(type, CardsType.TripleStraight);
+            CardsHelper.TryGetCardType(cards, out CardType type);
+            Assert.AreEqual(type, CardType.TripleStraight);
         }
         
         

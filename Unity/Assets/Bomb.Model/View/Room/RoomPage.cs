@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using AkaUI;
 using ET;
@@ -30,7 +31,15 @@ namespace Bomb.View
             this._promptBtn.onClick.AddListener(() =>
             {
                 List<Card> cards = LocalPlayerComponent.Instance.Player.Promp();
-                handCardPanel.SelectPrompt(cards);
+                if (cards != null)
+                {
+                    Log.Debug($"提示:{cards.ToText()}");
+                    handCardPanel.SelectPrompt(cards);
+                }
+                else
+                {
+                    Log.Debug($"手上没有大于的牌!");
+                }
             });
 
             this._popBtn.onClick.AddListener(async () =>
@@ -71,7 +80,9 @@ namespace Bomb.View
 
         private void On(TurnGameEvent e)
         {
-            var game = Game.Scene.GetComponent<Room>().GetComponent<GameControllerComponent>();
+            var room = Game.Scene.GetComponent<Room>();
+            var game = room.GetComponent<GameControllerComponent>();
+            var player = room.Get(game.LastOpSeat);
 
             var panel = GetPlayerPanel(game.LastOpSeat);
             panel.ShowPopTime(false);
@@ -81,6 +92,7 @@ namespace Bomb.View
             if (game.LastOp == GameOp.Play)
             {
                 panel.ShowPopCards(this._card, game.DeskCards);
+                panel.RefreshPokerNumber(player);
             }
 
             // 当前出牌的玩家

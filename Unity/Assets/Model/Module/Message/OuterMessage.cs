@@ -404,4 +404,16 @@ namespace ET
 
 	}
 
+// 回合结束
+	[Message(OuterOpcode.RoundEndMessage)]
+	[ProtoContract]
+	public partial class RoundEndMessage: IActorMessage
+	{
+		[ProtoMember(94)]
+		public long ActorId { get; set; }
+
+//TODO 每个玩家手上剩余的牌，需要在客户端显示。
+//TODO 每个玩家手上剩余的牌，需要在客户端显示。
+	}
+
 }

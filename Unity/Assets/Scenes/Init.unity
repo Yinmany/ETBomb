@@ -167,8 +167,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bce424a12666430884ef354cdfbe8bfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AssemblyDefinitionAssets:
-  - {fileID: 5897886265953266890, guid: cf3e45a31f75bef4ab9cc7f59cb20bdd, type: 3}
+  assemblyNames:
+  - Bomb.Model.dll
 --- !u!1 &213263238
 GameObject:
   m_ObjectHideFlags: 0

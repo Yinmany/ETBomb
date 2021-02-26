@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 
-namespace Bomb.Handler
+namespace Bomb.CardPrompt
 {
-    public class StraightHandler: ICardPromptPiplineHandler
+    public class StraightAnalyzer: IAnalyzer
     {
-        public bool Check(CardsType targetType)
+        public bool Check(CardType targetType)
         {
-            return targetType == CardsType.Straight;
+            return targetType == CardType.Straight;
         }
 
-        public void Invoke(CardPromptPiplineContext context)
+        public void Invoke(AnalysisContext context)
         {
             for (int i = 0; i <= context.AnalyseResults.Count - context.Target.Count; i++)
             {

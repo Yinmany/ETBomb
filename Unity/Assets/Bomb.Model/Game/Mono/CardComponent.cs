@@ -125,7 +125,7 @@ namespace Bomb
 
         public void ChangeSelect()
         {
-            if (Lock)
+            if (Lock || this.enabled == false)
             {
                 return;
             }

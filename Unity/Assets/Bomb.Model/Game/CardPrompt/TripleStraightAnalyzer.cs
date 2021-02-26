@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Bomb.Handler
+namespace Bomb.CardPrompt
 {
-    public class TripleStraightHandler: ThreeAndTwoHandler
+    public class TripleStraightAnalyzer: ThreeAndTwoAnalyzer
     {
-        public override bool Check(CardsType targetType)
+        public override bool Check(CardType targetType)
         {
-            return targetType == CardsType.TripleStraight;
+            return targetType == CardType.TripleStraight;
         }
 
-        public override void Invoke(CardPromptPiplineContext context)
+        public override void Invoke(AnalysisContext context)
         {
             // 几个连3带2
             int targetNum = context.Target.Count / 5;

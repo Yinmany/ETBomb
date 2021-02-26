@@ -22,8 +22,22 @@ namespace Bomb
             if (game.LastOp == GameOp.Play)
             {
                 game.DeskSeat = message.DeskSeat;
-                game.DeskCardsType = (CardsType) message.DeskCardType;
+                game.DeskCardType = (CardType) message.DeskCardType;
                 game.DeskCards = message.DeskCards.Select(f => new Card { Color = (CardColor) f.Color, Weight = (CardWeight) f.Weight }).ToList();
+
+                // 减少牌的数量
+                var player = room.Get(game.DeskSeat);
+                if (player != LocalPlayerComponent.Instance.Player)
+                {
+                    NetworkPlayerComponent networkPlayerComponent = player.GetComponent<NetworkPlayerComponent>();
+                    networkPlayerComponent.CardNumber -= game.DeskCards.Count;
+                }
+            }
+
+            // 轮到LocalPlayer出牌时，需要重置提示。
+            if (game.CurrentSeat == LocalPlayerComponent.Instance.Player.SeatIndex)
+            {
+                LocalPlayerComponent.Instance.Player.GetComponent<HandCardsComponent>().Reprompt();
             }
 
             EventBus.Publish(new TurnGameEvent());

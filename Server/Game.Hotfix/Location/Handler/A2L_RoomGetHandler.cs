@@ -15,6 +15,8 @@ namespace Bomb
 
             response.RoomId = id;
             reply();
+
+            await ETTask.CompletedTask;
         }
     }
 }

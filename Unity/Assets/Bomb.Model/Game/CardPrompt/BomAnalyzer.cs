@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Bomb.Handler
+namespace Bomb.CardPrompt
 {
-    public class BomHandler: ICardPromptPiplineHandler
+    public class BomAnalyzer: IAnalyzer
     {
         // 炸弹通吃
-        public bool Check(CardsType targetType)
+        public bool Check(CardType targetType)
         {
             return true;
         }
 
-        public void Invoke(CardPromptPiplineContext context)
+        public void Invoke(AnalysisContext context)
         {
             // 1.搜寻炸弹
             //      a.先确定王的个数
@@ -29,9 +29,9 @@ namespace Bomb.Handler
                 var result = boomResults[i];
 
                 // 验证此牌是否能接目标牌型
-                if (context.CheckPop(result.Cards, CardsType.Boom))
+                if (context.CheckPop(result.Cards, CardType.Boom))
                 {
-                    context.Add(new PrompCards { CardsType = CardsType.Boom, Cards = result.Cards.ToList() });
+                    context.Add(new PrompCards { CardType = CardType.Boom, Cards = result.Cards.ToList() });
                 }
                 
                 // 组合王
@@ -46,9 +46,9 @@ namespace Bomb.Handler
                         boomCards.Add(item);
 
                         // 每添加一个王，就向提示列表中，添加一种。
-                        if (context.CheckPop(boomCards, CardsType.Boom))
+                        if (context.CheckPop(boomCards, CardType.Boom))
                         {
-                            context.Add(new PrompCards { CardsType = CardsType.Boom, Cards = boomCards.ToList() });
+                            context.Add(new PrompCards { CardType = CardType.Boom, Cards = boomCards.ToList() });
                         }
                     }
                 }
@@ -63,7 +63,7 @@ namespace Bomb.Handler
                     jokerBoomCards.AddRange(jokerAnalyseResults[i].Cards);
                 }
 
-                context.Add(new PrompCards { CardsType = CardsType.JokerBoom, Cards = jokerBoomCards });
+                context.Add(new PrompCards { CardType = CardType.JokerBoom, Cards = jokerBoomCards });
             }
         }
     }

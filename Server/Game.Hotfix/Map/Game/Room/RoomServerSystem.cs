@@ -3,7 +3,7 @@ using ET;
 
 namespace Bomb
 {
-    public static class RoomSystem
+    public static class RoomServerSystem
     {
         public static bool TryGetSeatIndex(this Room self, out int index)
         {
@@ -211,8 +211,11 @@ namespace Bomb
                 self.SetGameStartState();
             }
 
+            game.Win.Clear();
+
             // 置为false
             game.IsDoubleThree = false;
+            game.RoundEnd = false;
 
             // 洗牌
             CardsHelper.Shuffle(game.Cards);
@@ -224,7 +227,7 @@ namespace Bomb
                 HandCardsComponent handCardsComponent = item.GetComponent<HandCardsComponent>();
                 handCardsComponent.Cards = game.Cards.GetRange(i * 27, 27).ToList();
                 handCardsComponent.Cards.Sort();
-                
+
                 int doubleThreeCount = 0;
                 foreach (Card card in handCardsComponent.Cards)
                 {

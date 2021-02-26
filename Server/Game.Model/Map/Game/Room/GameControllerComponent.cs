@@ -10,5 +10,7 @@ namespace Bomb
     {
         // 两幅牌
         public List<Card> Cards = new List<Card>(108);
+        public Queue<int> Win = new Queue<int>(2);
+        public bool IsWindup = false;
     }
 }

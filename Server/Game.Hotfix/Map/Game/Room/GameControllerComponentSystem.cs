@@ -50,7 +50,7 @@ namespace Bomb
             {
                 msg.DeskSeat = self.DeskSeat;
                 msg.DeskCards = self.DeskCards.Select(f => new CardProto { Color = (int) f.Color, Weight = (int) f.Weight }).ToList();
-                msg.DeskCardType = (int) self.DeskCardsType;
+                msg.DeskCardType = (int) self.DeskCardType;
             }
 
             Room room = (Room) self.Parent;
@@ -69,6 +69,28 @@ namespace Bomb
         {
             // 轮转到下一个人
             self.CurrentSeat = (self.CurrentSeat + 1) % 4;
+            var room = self.GetParent<Room>();
+            var player = room.Seats[self.CurrentSeat];
+            if (player.GetComponent<HandCardsComponent>().Cards.Count == 0)
+            {
+                if (self.DeskSeat == player.SeatIndex && !self.IsWindup)
+                {
+                    // 又轮到出完牌的玩家，就把出牌权给朋友。接风
+                    Player friend = room.GetSameTeam(player);
+                    self.CurrentSeat = friend.SeatIndex;
+                    self.DeskCards.Clear();
+                    self.DeskSeat = self.CurrentSeat;
+                    self.DeskCardType = CardType.None;
+
+                    self.IsWindup = true;
+                }
+                else
+                {
+                    // 跳过此玩家
+                    self.CurrentSeat = (self.CurrentSeat + 1) % 4;
+                }
+            }
+
             self.SyncGame();
         }
 
@@ -80,6 +102,11 @@ namespace Bomb
         /// <returns></returns>
         public static bool NotPop(this GameControllerComponent self, Player player)
         {
+            if (self.IsGameEnd())
+            {
+                return false;
+            }
+
             // 不该此玩家操作
             if (self.CurrentSeat != player.SeatIndex)
             {
@@ -105,6 +132,11 @@ namespace Bomb
         /// <param name="cards"></param>
         public static bool Pop(this GameControllerComponent self, Player player, List<Card> cards)
         {
+            if (self.IsGameEnd())
+            {
+                return false;
+            }
+
             // 不该此玩家操作
             if (self.CurrentSeat != player.SeatIndex)
             {
@@ -117,7 +149,7 @@ namespace Bomb
             }
 
             // 验证出牌是否符合
-            if (!CardsHelper.TryGetCardsType(cards, out CardsType type))
+            if (!CardsHelper.TryGetCardType(cards, out CardType type))
             {
                 // 出牌失败，牌型不对.
                 return false;
@@ -129,10 +161,10 @@ namespace Bomb
             if (self.DeskSeat != self.CurrentSeat && !PopCardHelper.Pop(new PopCheckInfo
             {
                 DesktopCards = self.DeskCards,
-                DesktopCardsType = self.DeskCardsType,
+                DesktopCardType = self.DeskCardType,
                 HandCards = player.GetComponent<HandCardsComponent>().Cards.Count,
                 PopCards = cards,
-                PopCardsType = type
+                PopCardType = type
             }))
             {
                 return false;
@@ -140,7 +172,7 @@ namespace Bomb
 
             // 接牌成功
             self.DeskCards = cards;
-            self.DeskCardsType = type;
+            self.DeskCardType = type;
             self.DeskSeat = player.SeatIndex;
 
             self.LastOp = GameOp.Play;
@@ -158,10 +190,49 @@ namespace Bomb
             player.Action = PlayerAction.Play;
             player.LastPlayCards = cards.ToList();
 
+            if (handCards.Cards.Count == 0)
+            {
+                self.Win.Enqueue(player.SeatIndex);
+                if (self.Win.Count == 2) // 一局结束
+                {
+                    OnRoundEnd(self, player);
+                }
+            }
+
             // 下一个人出牌
             self.Turn();
 
             return true;
+        }
+
+        private static bool IsGameEnd(this GameControllerComponent self)
+        {
+            return self.RoundEnd;
+        }
+
+        private static void OnRoundEnd(this GameControllerComponent self, Player player)
+        {
+            self.RoundEnd = true;
+
+            int a = self.Win.Dequeue();
+            Room room = self.GetParent<Room>();
+
+            // 双扣，需要重新找伙伴
+            if (room.Seats[a].GetComponent<TeamComponent>().Team == player.GetComponent<TeamComponent>().Team)
+            {
+                self.IsDoubleEnd = true;
+                Log.Debug($"一局结束:双扣...");
+            }
+            else
+            {
+                Log.Debug($"一局结束...");
+            }
+
+            for (int i = 0; i < room.Seats.Length; i++)
+            {
+                var p = room.Seats[i];
+                room.SendActor(p, new RoundEndMessage());
+            }
         }
 
         /// <summary>
@@ -169,8 +240,8 @@ namespace Bomb
         /// </summary>
         /// <param name="self"></param>
         /// <param name="player"></param>
-        /// <param name="cardsType"></param>
-        private static void Score(this GameControllerComponent self, Player player, CardsType cardsType)
+        /// <param name="cardType"></param>
+        private static void Score(this GameControllerComponent self, Player player, CardType cardType)
         {
         }
     }

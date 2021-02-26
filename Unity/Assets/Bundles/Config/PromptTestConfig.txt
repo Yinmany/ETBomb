@@ -9,5 +9,6 @@
 [1008, {"_id":1008,"Target":"5,5,6,6","TargetType":"DoubleStraight","Cards":"6,6,7,7,8,8,8,8","Result":3,"Handles":"DoubleStraight,Bom","Prompt":"6,6,7,7|7,7,8,8|8,8,8,8"}],
 [1009, {"_id":1009,"Target":"5,5,5,4,3","TargetType":"ThreeAndTwo","Cards":"6,6,7,7,8,8,8,9","Result":3,"Handles":"ThreeAndTwo,Bom"}],
 [1010, {"_id":1010,"Target":"4,4,4,5,5,5,3,3,6,6","TargetType":"TripleStraight","Cards":"6,6,7,7,7,8,8,8,9,9","Result":1,"Handles":"TripleStraight,Bom"}],
-[1011, {"_id":1011,"Target":"3,4,5,6,7","TargetType":"Straight","Cards":"6,7,8,9,10,J","Result":2,"Handles":"Straight,Bom"}],
+[1011, {"_id":1011,"Target":"3,4,5,6,7","TargetType":"Straight","Cards":"6,7,8,9,10,J","Result":2,"Handles":"Straight,Bom","Prompt":"6,7,8,9,10|7,8,9,10,J"}],
+[1012, {"_id":1012,"Target":"3,4,5,6,7","TargetType":"Straight","Cards":"3,4,4,5,5,7,7,7,8,9,9,9,J,J,Q,K,K,2,2,2,大王","Result":0,"Handles":"Straight,Bom"}],
 ]

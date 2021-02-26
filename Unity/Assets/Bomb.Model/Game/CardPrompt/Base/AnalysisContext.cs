@@ -1,21 +1,21 @@
 ﻿using System.Collections.Generic;
 
-namespace Bomb
+namespace Bomb.CardPrompt
 {
-    public class CardPromptPiplineContext
+    public class AnalysisContext
     {
-        public CardPromptPipline Pipline { get; }
+        public CardPromptAnalysis Analysis { get; }
         private List<PrompCards> PrompCardsList { get; }
         public IReadOnlyList<Card> HandCards { get; }
         public IReadOnlyList<Card> Target { get; }
-        public CardsType TargetType { get; }
+        public CardType TargetType { get; }
         public IReadOnlyList<AnalyseResult> AnalyseResults { get; }
 
-        public CardPromptPiplineContext(CardPromptPipline pipline, List<PrompCards> prompCardsList, IReadOnlyList<Card> handCards,
+        public AnalysisContext(CardPromptAnalysis analysis, List<PrompCards> prompCardsList, IReadOnlyList<Card> handCards,
         IReadOnlyList<Card> target,
-        CardsType targetType)
+        CardType targetType)
         {
-            this.Pipline = pipline;
+            this.Analysis = analysis;
             this.PrompCardsList = prompCardsList;
             this.HandCards = handCards;
             this.Target = target;
@@ -28,31 +28,31 @@ namespace Bomb
             PrompCardsList.Add(prompCards);
         }
 
-        public void Add(List<Card> cards, CardsType type = CardsType.None)
+        public void Add(List<Card> cards, CardType type = CardType.None)
         {
-            if (type == CardsType.None)
+            if (type == CardType.None)
             {
                 type = this.TargetType;
             }
 
-            Add(new PrompCards() { Cards = cards, CardsType = type });
+            Add(new PrompCards() { Cards = cards, CardType = type });
         }
 
-        public bool CheckPop(List<Card> cards, CardsType type)
+        public bool CheckPop(List<Card> cards, CardType type)
         {
             return PopCardHelper.Pop(new PopCheckInfo
             {
                 HandCards = HandCards.Count,
                 PopCards = cards,
-                PopCardsType = type,
+                PopCardType = type,
                 DesktopCards = Target,
-                DesktopCardsType = TargetType
+                DesktopCardType = TargetType
             });
         }
 
         public bool CheckPop(List<Card> cards)
         {
-            return CheckPop(cards, this.TargetType);
+            return cards.TryGetCardType(out var popCardType) && CheckPop(cards, popCardType);
         }
     }
 }

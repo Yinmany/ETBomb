@@ -23,41 +23,41 @@
       <Compile Include="..\..\Unity\Assets\Bomb.Model\GameErrorCode.cs">
         <Link>GameErrorCode.cs</Link>
       </Compile>
-      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\CardPrompt\CardPromptPipline.cs">
-        <Link>Map\Game\CardPrompt\CardPromptPipline.cs</Link>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\CardPrompt\Base\AnalysisContext.cs">
+        <Link>Map\Game\CardPrompt\Base\AnalysisContext.cs</Link>
       </Compile>
-      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\CardPrompt\CardPromptPiplineContext.cs">
-        <Link>Map\Game\CardPrompt\CardPromptPiplineContext.cs</Link>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\CardPrompt\Base\CardPromptAnalysis.cs">
+        <Link>Map\Game\CardPrompt\Base\CardPromptAnalysis.cs</Link>
       </Compile>
-      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\CardPrompt\Handler\BomHandler.cs">
-        <Link>Map\Game\CardPrompt\Handler\BomHandler.cs</Link>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\CardPrompt\Base\IAnalyzer.cs">
+        <Link>Map\Game\CardPrompt\Base\IAnalyzer.cs</Link>
       </Compile>
-      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\CardPrompt\Handler\DoubleHandler.cs">
-        <Link>Map\Game\CardPrompt\Handler\DoubleHandler.cs</Link>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\CardPrompt\Base\PrompCards.cs">
+        <Link>Map\Game\CardPrompt\Base\PrompCards.cs</Link>
       </Compile>
-      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\CardPrompt\Handler\DoubleStraightHandler.cs">
-        <Link>Map\Game\CardPrompt\Handler\DoubleStraightHandler.cs</Link>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\CardPrompt\BomAnalyzer.cs">
+        <Link>Map\Game\CardPrompt\BomAnalyzer.cs</Link>
       </Compile>
-      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\CardPrompt\Handler\OnlyThreeHandler.cs">
-        <Link>Map\Game\CardPrompt\Handler\OnlyThreeHandler.cs</Link>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\CardPrompt\DoubleAnalyzer.cs">
+        <Link>Map\Game\CardPrompt\DoubleAnalyzer.cs</Link>
       </Compile>
-      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\CardPrompt\Handler\SingleHandler.cs">
-        <Link>Map\Game\CardPrompt\Handler\SingleHandler.cs</Link>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\CardPrompt\DoubleStraightAnalyzer.cs">
+        <Link>Map\Game\CardPrompt\DoubleStraightAnalyzer.cs</Link>
       </Compile>
-      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\CardPrompt\Handler\StraightHandler.cs">
-        <Link>Map\Game\CardPrompt\Handler\StraightHandler.cs</Link>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\CardPrompt\OnlyThreeAnalyzer.cs">
+        <Link>Map\Game\CardPrompt\OnlyThreeAnalyzer.cs</Link>
       </Compile>
-      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\CardPrompt\Handler\ThreeAndTwoHandler.cs">
-        <Link>Map\Game\CardPrompt\Handler\ThreeAndTwoHandler.cs</Link>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\CardPrompt\SingleAnalyzer.cs">
+        <Link>Map\Game\CardPrompt\SingleAnalyzer.cs</Link>
       </Compile>
-      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\CardPrompt\Handler\TripleStraightHandler.cs">
-        <Link>Map\Game\CardPrompt\Handler\TripleStraightHandler.cs</Link>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\CardPrompt\StraightAnalyzer.cs">
+        <Link>Map\Game\CardPrompt\StraightAnalyzer.cs</Link>
       </Compile>
-      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\CardPrompt\ICardPromptPiplineHandler.cs">
-        <Link>Map\Game\CardPrompt\ICardPromptPiplineHandler.cs</Link>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\CardPrompt\ThreeAndTwoAnalyzer.cs">
+        <Link>Map\Game\CardPrompt\ThreeAndTwoAnalyzer.cs</Link>
       </Compile>
-      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\CardPrompt\PrompCards.cs">
-        <Link>Map\Game\CardPrompt\PrompCards.cs</Link>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\CardPrompt\TripleStraightAnalyzer.cs">
+        <Link>Map\Game\CardPrompt\TripleStraightAnalyzer.cs</Link>
       </Compile>
       <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\Card\AnalyseResult.cs">
         <Link>Map\Game\Card\AnalyseResult.cs</Link>
@@ -71,6 +71,9 @@
       <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\Card\CardTypes.cs">
         <Link>Map\Game\Card\CardTypes.cs</Link>
       </Compile>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\Player\HandCardsComponent.cs">
+        <Link>Map\Game\Player\HandCardsComponent.cs</Link>
+      </Compile>
       <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\Player\Player.cs">
         <Link>Map\Game\Player\Player.cs</Link>
       </Compile>
@@ -83,8 +86,8 @@
       <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\PopCardHelper.cs">
         <Link>Map\Game\PopCardHelper.cs</Link>
       </Compile>
-      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\TeamComponent.cs">
-        <Link>Map\Game\TeamComponent.cs</Link>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\Player\TeamComponent.cs">
+        <Link>Map\Game\Player\TeamComponent.cs</Link>
       </Compile>
       <Compile Include="..\..\Unity\Assets\Model\Module\Message\OuterMessage.cs">
         <Link>Message\OuterMessage.cs</Link>

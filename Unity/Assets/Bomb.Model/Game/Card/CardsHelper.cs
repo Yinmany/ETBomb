@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using ET;
 
 namespace Bomb
@@ -473,9 +474,9 @@ namespace Bomb
             return cards.All(item => item.Weight == CardWeight._5 && item.Weight == CardWeight._10 && item.Weight == CardWeight.K);
         }
 
-        public static bool TryGetCardsType(this List<Card> cards, out CardsType type)
+        public static bool TryGetCardType(this List<Card> cards, out CardType type)
         {
-            type = CardsType.None;
+            type = CardType.None;
             Sort(cards);
 
             // 小于4张的牌
@@ -483,19 +484,19 @@ namespace Bomb
             {
                 if (IsSingle(cards))
                 {
-                    type = CardsType.Single;
+                    type = CardType.Single;
                     return true;
                 }
 
                 if (IsDouble(cards))
                 {
-                    type = CardsType.Double;
+                    type = CardType.Double;
                     return true;
                 }
 
                 if (IsOnlyThree(cards))
                 {
-                    type = CardsType.OnlyThree;
+                    type = CardType.OnlyThree;
                     return true;
                 }
 
@@ -505,37 +506,37 @@ namespace Bomb
             // 后面都是 >=4张牌的
             if (IsJokerBoom(cards))
             {
-                type = CardsType.JokerBoom;
+                type = CardType.JokerBoom;
                 return true;
             }
 
             if (IsBoom(cards))
             {
-                type = CardsType.Boom;
+                type = CardType.Boom;
                 return true;
             }
 
             if (IsDoubleStraight(cards))
             {
-                type = CardsType.DoubleStraight;
+                type = CardType.DoubleStraight;
                 return true;
             }
 
             if (IsThreeAndTwo(cards))
             {
-                type = CardsType.ThreeAndTwo;
+                type = CardType.ThreeAndTwo;
                 return true;
             }
 
             if (IsStraight(cards))
             {
-                type = CardsType.Straight;
+                type = CardType.Straight;
                 return true;
             }
 
             if (IsTripleStraight(cards))
             {
-                type = CardsType.TripleStraight;
+                type = CardType.TripleStraight;
                 return true;
             }
 
@@ -549,48 +550,64 @@ namespace Bomb
         /// <param name="cards"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static int GetWeight(this IReadOnlyList<Card> cards, CardsType type)
+        public static int GetWeight(this IReadOnlyList<Card> cards, CardType type)
         {
             int w = 0;
             switch (type)
             {
-                case CardsType.None:
+                case CardType.None:
                     break;
 
-                case CardsType.ThreeAndTwo:
-                    // 前三张牌的权重
-                    for (int i = 0; i < 3; i++)
-                    {
-                        w += (int) cards[i].Weight;
-                    }
+                case CardType.ThreeAndTwo:
+                {
+                    List<AnalyseResult> analyseResults = AnalyseResult.Analyse(cards);
+                    analyseResults.Sort();
+
+                    w += (int) analyseResults[0].Weight * 3;
 
                     break;
-                case CardsType.TripleStraight:
+                }
+                case CardType.TripleStraight:
+                {
                     // 需要进行分析，因为特殊牌型:3333344444 3333444456 再排序上是挨着一起的。
                     List<AnalyseResult> analyseResults = AnalyseResult.Analyse(cards);
+                    analyseResults.Sort();
                     w = analyseResults.Sum(f => f.Count >= 3? (int) f.Weight * 3 : 0);
                     break;
-
-                case CardsType.Boom:
+                }
+                case CardType.Boom:
                     // 数量占大头 + 除王的权重值
                     w = int.MaxValue / 2 + cards.Count * 100 + cards.Where(card => !IsJoker(card)).Sum(card => (int) card.Weight);
                     break;
-                case CardsType.JokerBoom:
+                case CardType.JokerBoom:
                     w = int.MaxValue;
                     break;
 
                 // 直接求和的
-                case CardsType.Single:
-                case CardsType.Double:
-                case CardsType.OnlyThree:
-                case CardsType.DoubleStraight:
-                case CardsType.Straight:
+                case CardType.Single:
+                case CardType.Double:
+                case CardType.OnlyThree:
+                case CardType.DoubleStraight:
+                case CardType.Straight:
                 default:
                     w = cards.Sum(c => (int) c.Weight);
                     break;
             }
 
             return w;
+        }
+
+        public static string ToText(this IReadOnlyList<Card> cards)
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append("[");
+            foreach (Card card in cards)
+            {
+                builder.Append(card + ",");
+            }
+
+            builder.Replace(',', ']', builder.Length - 1, 1);
+            return builder.ToString();
         }
     }
 }

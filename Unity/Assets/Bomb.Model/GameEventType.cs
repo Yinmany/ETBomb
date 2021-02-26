@@ -64,4 +64,8 @@
         // 出牌错误码
         public int ErrorCode;
     }
+
+    public struct RoundEndEvent
+    {
+    }
 }

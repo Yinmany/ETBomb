@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Bomb.Handler
+namespace Bomb.CardPrompt
 {
-    public class ThreeAndTwoHandler: ICardPromptPiplineHandler
+    public class ThreeAndTwoAnalyzer: IAnalyzer
     {
-        public virtual bool Check(CardsType targetType)
+        public virtual bool Check(CardType targetType)
         {
-            return targetType == CardsType.ThreeAndTwo;
+            return targetType == CardType.ThreeAndTwo;
         }
 
-        public virtual void Invoke(CardPromptPiplineContext context)
+        public virtual void Invoke(AnalysisContext context)
         {
             // 1.找出3张的牌，多于3张的牌提示为炸弹.
             // 2.找出单牌,找出对子.排除王

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Bomb.Handler;
+using Bomb.CardPrompt;
 using ET;
 
 namespace Bomb
@@ -19,7 +19,7 @@ namespace Bomb
     {
         public List<Card> Cards;
 
-        private CardPromptPipline pipline = new CardPromptPipline();
+        private CardPromptAnalysis analysis = new CardPromptAnalysis();
 
         private bool _isReprompt = true;
 
@@ -27,14 +27,14 @@ namespace Bomb
 
         public void Awake()
         {
-            pipline.Handlers.AddLast(new SingleHandler());
-            pipline.Handlers.AddLast(new DoubleHandler());
-            pipline.Handlers.AddLast(new OnlyThreeHandler());
-            pipline.Handlers.AddLast(new DoubleStraightHandler());
-            pipline.Handlers.AddLast(new ThreeAndTwoHandler());
-            pipline.Handlers.AddLast(new TripleStraightHandler());
-            pipline.Handlers.AddLast(new StraightHandler());
-            pipline.Handlers.AddLast(new BomHandler());
+            this.analysis.AddLast(new SingleAnalyzer());
+            this.analysis.AddLast(new DoubleAnalyzer());
+            this.analysis.AddLast(new OnlyThreeAnalyzer());
+            this.analysis.AddLast(new DoubleStraightAnalyzer());
+            this.analysis.AddLast(new ThreeAndTwoAnalyzer());
+            this.analysis.AddLast(new TripleStraightAnalyzer());
+            this.analysis.AddLast(new StraightAnalyzer());
+            this.analysis.AddLast(new BomAnalyzer());
         }
         
         /// <summary>
@@ -73,17 +73,17 @@ namespace Bomb
                 // 调用提示
                 Player player = this.GetParent<Player>();
                 var game = player.Room.GetComponent<GameControllerComponent>();
-                pipline.Run(this.Cards, game.DeskCards, game.DeskCardsType);
+                this.analysis.Run(this.Cards, game.DeskCards, game.DeskCardType);
                 this._isReprompt = false;
             }
 
-            if (this.pipline.PrompCardsList.Count <= 0)
+            if (this.analysis.PrompCardsList.Count <= 0)
             {
                 return null;
             }
 
-            this.PromptIndex = (this.PromptIndex + 1) % this.pipline.PrompCardsList.Count;
-            return this.pipline.PrompCardsList[this.PromptIndex].Cards;
+            this.PromptIndex = (this.PromptIndex + 1) % this.analysis.PrompCardsList.Count;
+            return this.analysis.PrompCardsList[this.PromptIndex].Cards;
         }
     }
 }

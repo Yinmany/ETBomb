@@ -8,7 +8,7 @@ namespace Bomb
         /// <summary>
         /// 创建LocalPlayer的手牌
         /// </summary>
-        public static void CreateCards(GameObject cardPrefab, Transform parent, List<Card> cards)
+        public static void CreateCards(GameObject cardPrefab, Transform parent, List<Card> cards, bool enable = true)
         {
             foreach (Card item in cards)
             {
@@ -16,6 +16,7 @@ namespace Bomb
                 var cardComponent = card.GetComponent<CardComponent>();
                 cardComponent.Card = item;
                 cardComponent.Show();
+                cardComponent.enabled = enable;
             }
         }
     }

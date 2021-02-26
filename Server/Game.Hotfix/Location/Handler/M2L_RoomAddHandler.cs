@@ -8,6 +8,7 @@ namespace Bomb
         protected override async ETTask Run(Scene scene, M2L_RoomAddMessage message)
         {
             RoomManager.Instance.Add(message.RoomNum, message.RoomId);
+            await ETTask.CompletedTask;
         }
     }
 }

@@ -78,7 +78,7 @@ namespace Bomb
     /// 出的牌类型
     /// 玩法：罚王不大
     /// </summary>
-    public enum CardsType: byte
+    public enum CardType: byte
     {
         None,               // 错误牌型
         Single,             // 单张

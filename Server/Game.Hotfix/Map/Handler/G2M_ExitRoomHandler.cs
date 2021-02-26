@@ -19,6 +19,7 @@ namespace Bomb
             }
 
             reply();
+            await ETTask.CompletedTask;
         }
     }
 }

@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Bomb.Handler
+namespace Bomb.CardPrompt
 {
-    public class OnlyThreeHandler: ICardPromptPiplineHandler
+    public class OnlyThreeAnalyzer: IAnalyzer
     {
-        public bool Check(CardsType targetType)
+        public bool Check(CardType targetType)
         {
-            return targetType == CardsType.OnlyThree;
+            return targetType == CardType.OnlyThree;
         }
 
-        public void Invoke(CardPromptPiplineContext context)
+        public void Invoke(AnalysisContext context)
         {
             // 符合3张的所有牌类
             List<AnalyseResult> doubleAnalyseResults = context.AnalyseResults.Where(f => f.Count >= 3 && !CardsHelper.IsJoker(f.Weight)).ToList();
@@ -18,7 +18,7 @@ namespace Bomb.Handler
             {
                 if (context.CheckPop(analyseResult.Cards))
                 {
-                    context.Add(new PrompCards { Cards = analyseResult.Cards.GetRange(0, 3), CardsType = context.TargetType });
+                    context.Add(new PrompCards { Cards = analyseResult.Cards.GetRange(0, 3), CardType = context.TargetType });
                 }
             }
         }

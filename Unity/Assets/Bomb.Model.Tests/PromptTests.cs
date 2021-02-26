@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using Bomb;
+using Bomb.CardPrompt;
 using ET;
 using NUnit.Framework;
 using DescriptionAttribute = System.ComponentModel.DescriptionAttribute;
@@ -54,7 +55,7 @@ namespace Tests
         [Test]
         public void TestConfig()
         {
-            CardPromptPipline pipline = new CardPromptPipline();
+            CardPromptAnalysis analysis = new CardPromptAnalysis();
 
             ConfigHelper.CustomGetText = s =>
             {
@@ -70,14 +71,14 @@ namespace Tests
             foreach (long key in configs.Keys)
             {
                 Log.Debug($"{key}:{MongoHelper.ToJson(configs[key])}");
-                Test(configs[key], pipline);
+                Test(configs[key], analysis);
             }
         }
 
-        private void Test(PromptTestConfig config, CardPromptPipline pipline)
+        private void Test(PromptTestConfig config, CardPromptAnalysis analysis)
         {
             List<Card> target = new List<Card>();
-            CardsType targetType = (CardsType) Enum.Parse(typeof (CardsType), config.TargetType);
+            CardType targetType = (CardType) Enum.Parse(typeof (CardType), config.TargetType);
             List<Card> handCards = new List<Card>();
 
             CardTestHelper.Create(config.Cards, handCards);
@@ -86,27 +87,27 @@ namespace Tests
             int result = config.Result;
 
             // 添加提示管道
-            pipline.Handlers.Clear();
+            analysis.Clear();
             var handlersStr = config.Handles.Split(',');
-            var assembly = pipline.GetType().Assembly;
+            var assembly = analysis.GetType().Assembly;
             foreach (string s in handlersStr)
             {
-                Type type = assembly.GetType($"Bomb.Handler.{s}Handler");
-                pipline.Handlers.AddLast((ICardPromptPiplineHandler) Activator.CreateInstance(type));
+                Type type = assembly.GetType($"Bomb.CardPrompt.{s}Analyzer");
+                analysis.AddLast((IAnalyzer) Activator.CreateInstance(type));
             }
 
-            pipline.Run(handCards, target, targetType);
+            analysis.Run(handCards, target, targetType);
 
             // 提示结果数量不对
-            Assert.AreEqual(pipline.PrompCardsList.Count, result);
+            Assert.AreEqual(analysis.PrompCardsList.Count, result);
             
             if (!string.IsNullOrEmpty(config.Prompt))
             {
                 string[] groups = config.Prompt.Split('|');
 
-                for (int i = 0; i < pipline.PrompCardsList.Count; i++)
+                for (int i = 0; i < analysis.PrompCardsList.Count; i++)
                 {
-                    var p = pipline.PrompCardsList[i];
+                    var p = analysis.PrompCardsList[i];
                     List<Card> temp = new List<Card>();
                     CardTestHelper.Create(groups[i], temp);
 

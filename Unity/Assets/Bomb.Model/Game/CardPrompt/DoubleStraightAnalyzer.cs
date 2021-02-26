@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Bomb.Handler
+namespace Bomb.CardPrompt
 {
-    public class DoubleStraightHandler: ICardPromptPiplineHandler
+    public class DoubleStraightAnalyzer: IAnalyzer
     {
-        public bool Check(CardsType targetType)
+        public bool Check(CardType targetType)
         {
-            return targetType == CardsType.DoubleStraight;
+            return targetType == CardType.DoubleStraight;
         }
 
-        public void Invoke(CardPromptPiplineContext context)
+        public void Invoke(AnalysisContext context)
         {
             // 搜索连续的连队
             //  1.确定目标是几对
@@ -27,7 +27,7 @@ namespace Bomb.Handler
             }
 
             List<Card> tmpCards = new List<Card>();
-            for (int i = 0; i < doubleAnalyseResults.Count - 1; i++)
+            for (int i = 0; i <= doubleAnalyseResults.Count - targetNum; i++)
             {
                 tmpCards.Clear();
                 for (int j = i; j < targetNum + i; j++)

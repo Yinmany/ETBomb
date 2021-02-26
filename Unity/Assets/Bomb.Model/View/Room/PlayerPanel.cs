@@ -55,6 +55,17 @@ namespace Bomb.View
 
             var playerInfo = player.GetComponent<PlayerBaseInfo>();
             this._nickNameText.text = playerInfo.NickName;
+
+            RefreshPokerNumber(player);
+        }
+
+        public void RefreshPokerNumber(Player player)
+        {
+            // 显示其它玩家手中剩余的牌
+            if (!this._isLocalPlayer)
+            {
+                this._pokerNumText.text = player.GetComponent<NetworkPlayerComponent>().CardNumber.ToString();
+            }
         }
 
         /// <summary>
@@ -79,7 +90,7 @@ namespace Bomb.View
 
             // 没有人时，可以进行换座位。
             this._headImage.onClick.AddListener(() => { Log.Debug($"点击换座位:{this._viewSeatIndex}"); });
-            
+
             this._notImage.gameObject.SetActive(false);
         }
 
@@ -109,14 +120,14 @@ namespace Bomb.View
 
         public void ShowPopCards(GameObject prefab, List<Card> cards)
         {
-            CardViewHelper.CreateCards(prefab, this._playCard.transform, cards);
+            CardViewHelper.CreateCards(prefab, this._playCard.transform, cards, false);
         }
 
         public void ShowNotImage(bool show = true)
         {
             this._notImage.gameObject.SetActive(show);
         }
-        
+
         public void ClearPlayCards()
         {
             for (int i = 0; i < this._playCard.transform.childCount; i++)

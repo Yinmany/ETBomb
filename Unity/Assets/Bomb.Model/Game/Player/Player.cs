@@ -18,7 +18,7 @@ namespace Bomb
         NotPlay
     }
 
-    public partial class Player: Entity
+    public class Player: Entity
     {
         public long UId { get; set; }
 
@@ -32,6 +32,7 @@ namespace Bomb
 
         // 最后一次出的牌
         public List<Card> LastPlayCards { get; set; }
+        
         public PlayerAction Action { get; set; }
 
         public void Awake(long uid, Room room)
