@@ -20,9 +20,11 @@ namespace Bomb
         public Player[] Seats = new Player[4];
 
         /// <summary>
-        /// 是否进行游戏
+        /// 是否已锁定
+        /// 游戏开始时，锁定房间。
+        /// 游戏结束时，解锁房间。
         /// </summary>
-        public bool IsGame { get; set; }
+        public bool Locked { get; private set; }
 
         public void Awake(long roomNum, long uid)
         {
@@ -30,9 +32,14 @@ namespace Bomb
             this.UId = uid;
         }
 
-        public void SetGameStartState()
+        public void Lock()
         {
-            IsGame = true;
+            this.Locked = true;
+        }
+
+        public void Unlock()
+        {
+            this.Locked = false;
         }
 
         public override void Dispose()
@@ -52,7 +59,7 @@ namespace Bomb
                 player?.Dispose();
             }
 
-            IsGame = false;
+            Locked = false;
         }
     }
 }

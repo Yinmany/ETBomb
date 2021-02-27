@@ -77,14 +77,14 @@
       <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\Player\Player.cs">
         <Link>Map\Game\Player\Player.cs</Link>
       </Compile>
+      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\PopCardHelper.cs">
+        <Link>Map\PopCardHelper.cs</Link>
+      </Compile>
       <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\Room\GameControllerComponent.cs">
         <Link>Map\Game\Room\GameControllerComponent.cs</Link>
       </Compile>
       <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\Room\Room.cs">
         <Link>Map\Game\Room\Room.cs</Link>
-      </Compile>
-      <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\PopCardHelper.cs">
-        <Link>Map\Game\PopCardHelper.cs</Link>
       </Compile>
       <Compile Include="..\..\Unity\Assets\Bomb.Model\Game\Player\TeamComponent.cs">
         <Link>Map\Game\Player\TeamComponent.cs</Link>

@@ -89,7 +89,7 @@ namespace Bomb
         public static void Exit(this Room self, Player player)
         {
             // 游戏中不允许退出
-            if (self.IsGame)
+            if (self.Locked)
             {
                 return;
             }
@@ -242,7 +242,7 @@ namespace Bomb
             CardsHelper.Spawn(game.Cards);
             CardsHelper.Spawn(game.Cards);
 
-            self.SetGameStartState();
+            self.Lock();
 
             game.Win.Clear();
             game.IsWindup = false;

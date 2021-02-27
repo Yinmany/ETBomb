@@ -249,7 +249,7 @@ namespace Bomb
             }
 
             // 不在进行游戏...
-            room.IsGame = false;
+            room.Unlock();
         }
 
         /// <summary>
