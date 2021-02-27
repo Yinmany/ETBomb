@@ -276,22 +276,22 @@ namespace Bomb
             }
 
             List<AnalyseResult> analyseResults = AnalyseResult.Analyse(cards);
-
+            
             // 3张的牌有几个
-            int count = analyseResults.Count(f => f.Count >= 3);
+            var tmpResult = analyseResults.Where(f => f.Count >= 3).ToList();
 
             // 3张牌的个数+每三张带二张牌的个数 刚好等于 需要验证的牌的个数，如果不等于直接false
-            if (count * 3 + count * 2 != cards.Count)
+            if (tmpResult.Count * 5 != cards.Count)
             {
                 return false;
             }
 
             // 3张的牌的权重依次递增: 3334443456需要给通过，但视图现在显示为：3333444456
-            for (int i = 0; i < count - 1; i++)
+            for (int i = 0; i < tmpResult.Count - 1; i++)
             {
                 // 排除2
-                if (analyseResults[i + 1].Weight - analyseResults[i].Weight != 1 || analyseResults[i].Weight == CardWeight._2 ||
-                    analyseResults[i + 1].Weight == CardWeight._2)
+                if (tmpResult[i + 1].Weight - tmpResult[i].Weight != 1 || tmpResult[i].Weight == CardWeight._2 ||
+                    tmpResult[i + 1].Weight == CardWeight._2)
                 {
                     return false;
                 }
@@ -560,18 +560,13 @@ namespace Bomb
 
                 case CardType.ThreeAndTwo:
                 {
-                    List<AnalyseResult> analyseResults = AnalyseResult.Analyse(cards);
-                    analyseResults.Sort();
-
-                    w += (int) analyseResults[0].Weight * 3;
-
+                    w += (int) cards[0].Weight * 3;
                     break;
                 }
                 case CardType.TripleStraight:
                 {
                     // 需要进行分析，因为特殊牌型:3333344444 3333444456 再排序上是挨着一起的。
                     List<AnalyseResult> analyseResults = AnalyseResult.Analyse(cards);
-                    analyseResults.Sort();
                     w = analyseResults.Sum(f => f.Count >= 3? (int) f.Weight * 3 : 0);
                     break;
                 }

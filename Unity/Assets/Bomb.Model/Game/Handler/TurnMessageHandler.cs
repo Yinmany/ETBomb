@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using AkaUI;
+using Bomb.View;
 using ET;
 using GameEventType;
 
@@ -16,20 +17,21 @@ namespace Bomb
             // 记录当前出牌
             game.CurrentSeat = message.CurrentSeat;
             game.LastOpSeat = message.LastOpSeat;
-            game.LastOp = (GameOp) message.LastOp;
+
+            Player lastPlayer = room.Get(message.LastOpSeat);
+            lastPlayer.Action = (PlayerAction) message.LastOp;
 
             // 最后一次的操作是出的牌，才会同步牌桌的信息。
-            if (game.LastOp == GameOp.Play)
+            if (lastPlayer.Action == PlayerAction.Play)
             {
                 game.DeskSeat = message.DeskSeat;
                 game.DeskCardType = (CardType) message.DeskCardType;
                 game.DeskCards = message.DeskCards.Select(f => new Card { Color = (CardColor) f.Color, Weight = (CardWeight) f.Weight }).ToList();
 
                 // 减少牌的数量
-                var player = room.Get(game.DeskSeat);
-                if (player != LocalPlayerComponent.Instance.Player)
+                if (lastPlayer != LocalPlayerComponent.Instance.Player)
                 {
-                    NetworkPlayerComponent networkPlayerComponent = player.GetComponent<NetworkPlayerComponent>();
+                    NetworkPlayerComponent networkPlayerComponent = lastPlayer.GetComponent<NetworkPlayerComponent>();
                     networkPlayerComponent.CardNumber -= game.DeskCards.Count;
                 }
             }
@@ -38,6 +40,17 @@ namespace Bomb
             if (game.CurrentSeat == LocalPlayerComponent.Instance.Player.SeatIndex)
             {
                 LocalPlayerComponent.Instance.Player.GetComponent<HandCardsComponent>().Reprompt();
+            }
+
+            if (message.GameOver)
+            {
+                var args = new Dialog.Args("游戏", "游戏结束");
+                args.OkAction = () =>
+                {
+                    EventBus.Publish(new StartGameEvent { GameOver = true });
+                    Dialog.Close();
+                };
+                Dialog.Open(args);
             }
 
             EventBus.Publish(new TurnGameEvent());

@@ -59,6 +59,7 @@
      <Compile Include="Assets\Bomb.Model\Game\CardPrompt\SingleAnalyzer.cs" />
      <Compile Include="Assets\Bomb.Model\Game\Room\GameControllerComponent.cs" />
      <Compile Include="Assets\Bomb.Model\Game\Room\RoomAwakeSystem.cs" />
+     <Compile Include="Assets\Bomb.Model\Game\Event\OnRoundEnd.cs" />
      <Compile Include="Assets\Bomb.Model\View\Lobby\JoinOrCreate\JoinOrCreateDialog.cs" />
      <Compile Include="Assets\Bomb.Model\View\Room\TestButtonGroup.cs" />
      <Compile Include="Assets\Bomb.Model\Game\CardPrompt\Base\AnalysisContext.cs" />
@@ -74,6 +75,7 @@
      <Compile Include="Assets\Bomb.Model\View\Lobby\JoinOrCreate\JoinPanel.cs" />
      <Compile Include="Assets\Bomb.Model\View\Lobby\LobbyPage.cs" />
      <Compile Include="Assets\Bomb.Model\View\Lobby\JoinOrCreate\JoinPanel.Gen.cs" />
+     <Compile Include="Assets\Bomb.Model\Game\Room\RoomSystem.cs" />
      <Compile Include="Assets\Bomb.Model\View\Room\PlayerPanel.Gen.cs" />
      <Compile Include="Assets\Bomb.Model\View\Login\LoginPage.cs" />
      <Compile Include="Assets\Bomb.Model\Helper\SeatHelper.cs" />
@@ -82,10 +84,12 @@
      <Compile Include="Assets\Bomb.Model\Game\CardPrompt\OnlyThreeAnalyzer.cs" />
      <Compile Include="Assets\Bomb.Model\Game\CardPrompt\Base\PrompCards.cs" />
      <Compile Include="Assets\Bomb.Model\View\Loading\LoadingPage.cs" />
+     <Compile Include="Assets\Bomb.Model\Game\Player\NetworkPlayerComponent.cs" />
      <Compile Include="Assets\Bomb.Model\Game\Player\HandCardsComponent.cs" />
      <Compile Include="Assets\Bomb.Model\Game\Player\PromptCards.cs" />
      <Compile Include="Assets\Bomb.Model\View\Base\NetworkLoading.Gen.cs" />
      <Compile Include="Assets\Bomb.Model\Modules\Session\SessionComponent.cs" />
+     <Compile Include="Assets\Bomb.Model\Game\Handler\RoundEndHandler.cs" />
      <Compile Include="Assets\Bomb.Model\Game\Player\Player.cs" />
      <Compile Include="Assets\Bomb.Model\View\Lobby\PlayerInfoPanel.Gen.cs" />
      <Compile Include="Assets\Bomb.Model\Modules\ResourcesComponent.cs" />
@@ -130,10 +134,6 @@
      <Compile Include="Assets\Bomb.Model\Game\CardPrompt\Base\CardPromptAnalysis.cs" />
      <Compile Include="Assets\Bomb.Model\Game\Player\PlayerAwakeSystem.cs" />
      <Compile Include="Assets\Bomb.Model\GameErrorCode.cs" />
-     <Compile Include="Assets\Bomb.Model\Game\Player\NetworkPlayerComponent.cs" />
-     <Compile Include="Assets\Bomb.Model\Game\Room\RoomSystem.cs" />
-     <Compile Include="Assets\Bomb.Model\Game\Handler\RoundEndHandler.cs" />
-     <Compile Include="Assets\Bomb.Model\Game\Event\OnRoundEnd.cs" />
      <None Include="Assets\Bomb.Model\Bomb.Model.asmdef" />
  <Reference Include="UnityEngine">
  <HintPath>D:/DevTools/Unity/2020.2.6f1c1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

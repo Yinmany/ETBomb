@@ -1,5 +1,4 @@
-﻿using Bomb.View;
-using ET;
+﻿using ET;
 using GameEventType;
 
 namespace Bomb
@@ -8,9 +7,7 @@ namespace Bomb
     {
         public override async ETTask Run(RoundEndEvent a)
         {
-            var args = new Dialog.Args("游戏", "游戏结束");
-            args.OkAction = () => { Dialog.Close(); };
-            Dialog.Open(args);
+
 
             await ETTask.CompletedTask;
         }

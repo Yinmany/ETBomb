@@ -71,7 +71,7 @@ namespace Bomb.View
         /// <summary>
         /// 该显示的显示，该隐藏的隐藏
         /// </summary>
-        private void Reset()
+        public void Reset()
         {
             _isFirstShow = true;
             _isLocalPlayer = false;
@@ -92,6 +92,8 @@ namespace Bomb.View
             this._headImage.onClick.AddListener(() => { Log.Debug($"点击换座位:{this._viewSeatIndex}"); });
 
             this._notImage.gameObject.SetActive(false);
+
+            ClearPlayCards();
         }
 
         public void StartGame()

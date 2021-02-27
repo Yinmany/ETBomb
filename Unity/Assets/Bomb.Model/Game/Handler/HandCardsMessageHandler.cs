@@ -19,7 +19,7 @@ namespace Bomb
                     Color = (CardColor) f.Color, Weight = (CardWeight) f.Weight
                 }).ToList();
 
-                EventBus.Publish(new StartGameEvent());
+                EventBus.Publish(new StartGameEvent { GameOver = false });
             }
 
             // 让UI显示队友

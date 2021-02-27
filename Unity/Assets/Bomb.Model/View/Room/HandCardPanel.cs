@@ -100,5 +100,14 @@ namespace Bomb
                 }
             }
         }
+
+        public void Reset()
+        {
+            _selectedCards.Clear();
+            for (int i = 0; i < this.View.transform.childCount; i++)
+            {
+                Object.Destroy(this.View.transform.GetChild(i).gameObject);
+            }
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace Bomb
         public int HandCards;
 
         // 出的牌
-        public IReadOnlyList<Card> PopCards;
+        public List<Card> PopCards;
 
         // 出牌的牌型
         public CardType PopCardType;
@@ -41,7 +41,7 @@ namespace Bomb
             {
                 return false;
             }
-
+            
             return Pop(info.PopCards, info.PopCardType, info.DesktopCards, info.DesktopCardType);
         }
 

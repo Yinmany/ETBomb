@@ -22,7 +22,7 @@ namespace Bomb
         /// <summary>
         /// 是否进行游戏
         /// </summary>
-        public bool IsGame { get; private set; }
+        public bool IsGame { get; set; }
 
         public void Awake(long roomNum, long uid)
         {
@@ -33,6 +33,26 @@ namespace Bomb
         public void SetGameStartState()
         {
             IsGame = true;
+        }
+
+        public override void Dispose()
+        {
+            if (this.IsDisposed)
+            {
+                return;
+            }
+
+            base.Dispose();
+
+            Num = 0;
+            UId = 0;
+
+            foreach (Player player in this.Seats)
+            {
+                player?.Dispose();
+            }
+
+            IsGame = false;
         }
     }
 }

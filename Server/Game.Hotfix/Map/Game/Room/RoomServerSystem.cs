@@ -23,6 +23,9 @@ namespace Bomb
 
         public static void Enter(this Room self, Player player, int seatIndex)
         {
+            player.AddComponent<HandCardsComponent>();
+            player.AddComponent<TeamComponent>();
+
             player.Parent = self;
             player.SeatIndex = seatIndex;
 
@@ -61,6 +64,8 @@ namespace Bomb
             self.Seats[seatIndex] = player;
 
             Log.Debug($"玩家进入房间:{player.UId}");
+
+            self.RemoveComponent<RoomTimeout>();
         }
 
         public static void SendActor(this Room self, Player player, IActorMessage message)
@@ -83,6 +88,12 @@ namespace Bomb
 
         public static void Exit(this Room self, Player player)
         {
+            // 游戏中不允许退出
+            if (self.IsGame)
+            {
+                return;
+            }
+
             PlayerExitRoom msg = new PlayerExitRoom();
             msg.UId = player.UId;
             msg.SeatIndex = player.SeatIndex;
@@ -105,6 +116,38 @@ namespace Bomb
 
             Log.Debug($"玩家离开房间:{player.UId}");
             player.Dispose();
+
+            self.Timeout();
+        }
+
+        public static void Timeout(this Room self)
+        {
+            int playerCount = self.GetRoomPlayerCount();
+            if (playerCount == 0)
+            {
+                // 60秒超时销毁房间
+                Log.Debug($"房间添加超时销毁组件:{self.Num}");
+                self.AddComponent<RoomTimeout>();
+            }
+        }
+
+        /// <summary>
+        /// 获取玩家数量
+        /// </summary>
+        /// <param name="self"></param>
+        /// <returns></returns>
+        public static int GetRoomPlayerCount(this Room self)
+        {
+            int count = 0;
+            for (int i = 0; i < self.Seats.Length; i++)
+            {
+                if (self.Seats[i] != null)
+                {
+                    ++count;
+                }
+            }
+
+            return count;
         }
 
         public static bool TryGetSeatIndex(this Room self, long uid, out int seatIndex)
@@ -192,26 +235,17 @@ namespace Bomb
 
         private static void GameStart(this Room self)
         {
-            GameControllerComponent game = self.GetComponent<GameControllerComponent>();
-            if (game == null)
-            {
-                // 初始化
-                game = self.AddComponent<GameControllerComponent>();
+            GameControllerComponent game = self.GetComponent<GameControllerComponent>() ?? self.AddComponent<GameControllerComponent>();
 
-                // 两幅牌
-                CardsHelper.Spawn(game.Cards);
-                CardsHelper.Spawn(game.Cards);
+            // 两幅牌
+            game.Cards.Clear();
+            CardsHelper.Spawn(game.Cards);
+            CardsHelper.Spawn(game.Cards);
 
-                for (int i = 0; i < self.Seats.Length; i++)
-                {
-                    self.Seats[i].AddComponent<HandCardsComponent>();
-                    self.Seats[i].AddComponent<TeamComponent>();
-                }
-
-                self.SetGameStartState();
-            }
+            self.SetGameStartState();
 
             game.Win.Clear();
+            game.IsWindup = false;
 
             // 置为false
             game.IsDoubleThree = false;
@@ -257,7 +291,7 @@ namespace Bomb
             self.SyncHandCard();
 
             // 让首次出牌玩家成功
-            game.DeskSeat = game.CurrentSeat;
+            game.LastOpSeat = game.DeskSeat = game.CurrentSeat;
             game.SyncGame();
             Log.Debug($"房间游戏开始:RoomNum={self.Num}");
         }

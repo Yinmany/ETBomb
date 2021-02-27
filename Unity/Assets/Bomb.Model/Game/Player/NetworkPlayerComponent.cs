@@ -9,5 +9,16 @@ namespace Bomb
     {
         // 牌的数量:默认27张 
         public int CardNumber = 27;
+
+        public override void Dispose()
+        {
+            if (this.IsDisposed)
+            {
+                return;
+            }
+
+            base.Dispose();
+            this.CardNumber = 27;
+        }
     }
 }

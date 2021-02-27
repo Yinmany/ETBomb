@@ -50,6 +50,7 @@
 
     public struct StartGameEvent
     {
+        public bool GameOver;
     }
 
     public struct TurnGameEvent

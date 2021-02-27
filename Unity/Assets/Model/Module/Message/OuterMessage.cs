@@ -402,6 +402,9 @@ namespace ET
 		[ProtoMember(6)]
 		public int CurrentSeat { get; set; }
 
+		[ProtoMember(7)]
+		public bool GameOver { get; set; }
+
 	}
 
 // 回合结束

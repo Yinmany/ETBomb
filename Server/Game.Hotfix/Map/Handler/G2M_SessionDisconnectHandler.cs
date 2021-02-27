@@ -14,6 +14,7 @@ namespace Bomb
 
             player.GetComponent<PlayerServer>().IsNetSync = false;
 
+            // 房间不在游戏中，直接让掉线玩家退出。
             if (!room.IsGame)
             {
                 room.Exit(player);

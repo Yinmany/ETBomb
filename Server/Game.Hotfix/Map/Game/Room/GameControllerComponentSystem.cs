@@ -10,7 +10,6 @@ namespace Bomb
         /// 首轮检查先手玩家
         /// </summary>
         /// <param name="self"></param>
-        /// <param name="seat"></param>
         /// <param name="card"></param>
         public static bool IsFirst(this GameControllerComponent self, Card card)
         {
@@ -37,27 +36,32 @@ namespace Bomb
         /// 同步游戏
         /// </summary>
         /// <param name="self"></param>
-        /// <param name="isFirst"></param>
         public static void SyncGame(this GameControllerComponent self)
         {
+            Room room = (Room) self.Parent;
+            Player lastPlayer = room.Seats[self.LastOpSeat];
+
             TurnMessage msg = new TurnMessage();
             msg.CurrentSeat = self.CurrentSeat;
             msg.LastOpSeat = self.LastOpSeat;
-            msg.LastOp = (int) self.LastOp;
+            msg.LastOp = (int) lastPlayer.Action;
+            msg.GameOver = self.RoundEnd;
 
             // 最后操作是出了牌的，才同步牌桌上的牌。
-            if (self.LastOp == GameOp.Play)
+            if (lastPlayer.Action == PlayerAction.Play)
             {
                 msg.DeskSeat = self.DeskSeat;
                 msg.DeskCards = self.DeskCards.Select(f => new CardProto { Color = (int) f.Color, Weight = (int) f.Weight }).ToList();
                 msg.DeskCardType = (int) self.DeskCardType;
             }
 
-            Room room = (Room) self.Parent;
             for (int i = 0; i < room.Seats.Length; i++)
             {
                 var item = room.Seats[i];
-                room.SendActor(item, msg);
+                if (item != null)
+                {
+                    room.SendActor(item, msg);
+                }
             }
         }
 
@@ -118,8 +122,11 @@ namespace Bomb
                 return false;
             }
 
+            // 记录Player最后一次的操作，断线重连后需要恢复每个玩家的最近的操作。
             self.LastOpSeat = player.SeatIndex;
-            self.LastOp = GameOp.NotPlay;
+            player.Action = PlayerAction.NotPlay;
+            player.LastPlayCards?.Clear();
+
             self.Turn();
             return true;
         }
@@ -155,6 +162,13 @@ namespace Bomb
                 return false;
             }
 
+            // 特殊排序
+            if (type == CardType.ThreeAndTwo || type == CardType.TripleStraight)
+            {
+                // 权重排序
+                CardsHelper.WeightSort(cards);
+            }
+
             // 接牌，自己上次出牌没人接牌以及，自己能接上次别人出的牌，就轮转。
             // self.LastPopCardSeat == self.CurrentPopSeat 是自己的牌最大，都没有人要。
             // 一般来说都得同牌型，但炸弹能接所有牌型。
@@ -175,7 +189,6 @@ namespace Bomb
             self.DeskCardType = type;
             self.DeskSeat = player.SeatIndex;
 
-            self.LastOp = GameOp.Play;
             self.LastOpSeat = player.SeatIndex;
 
             // 从玩家手牌中移除牌
@@ -187,6 +200,7 @@ namespace Bomb
                 self.Cards.Add(card);
             }
 
+            // 记录Player最后一次的操作，断线重连后需要恢复每个玩家的最近的操作。
             player.Action = PlayerAction.Play;
             player.LastPlayCards = cards.ToList();
 
@@ -233,6 +247,9 @@ namespace Bomb
                 var p = room.Seats[i];
                 room.SendActor(p, new RoundEndMessage());
             }
+
+            // 不在进行游戏...
+            room.IsGame = false;
         }
 
         /// <summary>

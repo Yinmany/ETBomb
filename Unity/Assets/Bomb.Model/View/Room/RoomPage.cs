@@ -82,17 +82,17 @@ namespace Bomb.View
         {
             var room = Game.Scene.GetComponent<Room>();
             var game = room.GetComponent<GameControllerComponent>();
-            var player = room.Get(game.LastOpSeat);
+            var lastPlayer = room.Get(game.LastOpSeat);
 
             var panel = GetPlayerPanel(game.LastOpSeat);
             panel.ShowPopTime(false);
-            panel.ShowNotImage(game.LastOp == GameOp.NotPlay);
+            panel.ShowNotImage(lastPlayer.Action == PlayerAction.NotPlay);
 
             // 玩家出了牌
-            if (game.LastOp == GameOp.Play)
+            if (lastPlayer.Action == PlayerAction.Play)
             {
                 panel.ShowPopCards(this._card, game.DeskCards);
-                panel.RefreshPokerNumber(player);
+                panel.RefreshPokerNumber(lastPlayer);
             }
 
             // 当前出牌的玩家
@@ -143,21 +143,27 @@ namespace Bomb.View
         protected override void OnOpen(object args = null)
         {
             this._roomInfoText.text = $"房间号: {Game.Scene.GetComponent<Room>().Num}";
+
             Reset();
         }
 
         private void On(StartGameEvent e)
         {
-            this._firendBtn.gameObject.SetActive(false);
-            this._exitRoomBtn.gameObject.SetActive(false);
-            this._destroyRoomBtn.gameObject.SetActive(false);
+            this._firendBtn.gameObject.SetActive(e.GameOver);
+            this._exitRoomBtn.gameObject.SetActive(e.GameOver);
+            this._destroyRoomBtn.gameObject.SetActive(e.GameOver);
+
+            if (e.GameOver)
+            {
+                return;
+            }
 
             // 创建手牌
             var handCards = LocalPlayerComponent.Instance.Player.GetComponent<HandCardsComponent>().Cards;
             CardViewHelper.CreateCards(this._card, this._handCardPanel.transform, handCards);
             this.handCardPanel.Reflush();
 
-            foreach (PlayerPanel playerPanel in playerPanels)
+            foreach (PlayerPanel playerPanel in this.playerPanels)
             {
                 playerPanel.StartGame();
             }
@@ -171,14 +177,16 @@ namespace Bomb.View
             {
                 player = null;
             }
+            else
+            {
+                // LocalPlayer准备
+                if (player.IsReady && e.Seat == LocalPlayerComponent.Instance.LocalPlayerSeatIndex)
+                {
+                    LocalPlayerReady(player.IsReady);
+                }
+            }
 
             panel.Refresh(player);
-
-            // LocalPlayer准备
-            if (player.IsReady && e.Seat == LocalPlayerComponent.Instance.LocalPlayerSeatIndex)
-            {
-                LocalPlayerReady(player.IsReady);
-            }
         }
 
         private void LocalPlayerReady(bool ready)
@@ -205,6 +213,15 @@ namespace Bomb.View
             this._popBtn.gameObject.SetActive(false);
             this._notPopBtn.gameObject.SetActive(false);
             this._promptBtn.gameObject.SetActive(false);
+
+            for (int i = 0; i < this.playerPanels.Length; i++)
+            {
+                this.playerPanels[i].Reset();
+            }
+
+            this.handCardPanel.Reset();
+            
+            this.ShowInteractionUI(false);
         }
     }
 }

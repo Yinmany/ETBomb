@@ -3,13 +3,6 @@ using ET;
 
 namespace Bomb
 {
-    public enum GameOp: byte
-    {
-        None,
-        Play,
-        NotPlay
-    }
-
     /// <summary>
     /// 游戏控制组件
     /// </summary>
@@ -40,11 +33,6 @@ namespace Bomb
         /// </summary>
         public int LastOpSeat { get; set; }
 
-        /// <summary>
-        /// 最后的操作
-        /// </summary>
-        public GameOp LastOp { get; set; }
-
         public bool RoundEnd { get; set; }
 
         public override void Dispose()
@@ -63,10 +51,9 @@ namespace Bomb
             DeskSeat = -1;
             DeskCardType = CardType.None;
             LastOpSeat = -1;
-            LastOp = GameOp.None;
             this.RoundEnd = false;
 #if SERVER
-            Cards.Clear();
+            this.Cards.Clear();
             Win.Clear();
             IsWindup = false;
 #endif

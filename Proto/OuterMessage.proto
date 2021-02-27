@@ -193,6 +193,8 @@ message TurnMessage // IActorMessage
 	repeated CardProto DeskCards = 4;
 	int32 DeskCardType = 5;
 	int32 CurrentSeat = 6;
+
+	bool GameOver = 7;
 }
 
 // 回合结束
