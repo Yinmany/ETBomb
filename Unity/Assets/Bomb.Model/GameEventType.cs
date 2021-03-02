@@ -48,7 +48,7 @@
     {
     }
 
-    public struct StartGameEvent
+    public struct GameStartEvent
     {
         public bool GameOver;
     }

@@ -7,7 +7,7 @@ namespace Bomb
     {
         protected override async ETTask Run(Session session, TeamMessage message)
         {
-            var player = Game.Scene.GetComponent<Room>().Seats[message.SeatIndex];
+            var player = Game.Scene.GetComponent<Room>().Players[message.SeatIndex];
             player.GetComponent<TeamComponent>().Team = (TeamType) message.Team;
         }
     }

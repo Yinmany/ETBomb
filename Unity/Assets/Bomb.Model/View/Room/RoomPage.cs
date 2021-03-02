@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using AkaUI;
 using ET;
 using GameEventType;
@@ -73,7 +70,7 @@ namespace Bomb.View
 
             // Player事件
             this.Subscribe<PlayerRoomEvent>(On);
-            this.Subscribe<StartGameEvent>(On);
+            this.Subscribe<GameStartEvent>(On);
             this.Subscribe<TeamChangedEvent>(On);
             this.Subscribe<TurnGameEvent>(On);
         }
@@ -81,7 +78,7 @@ namespace Bomb.View
         private void On(TurnGameEvent e)
         {
             var room = Game.Scene.GetComponent<Room>();
-            var game = room.GetComponent<GameControllerComponent>();
+            var game = room.GetComponent<GameController>();
             var lastPlayer = room.Get(game.LastOpSeat);
 
             var panel = GetPlayerPanel(game.LastOpSeat);
@@ -142,12 +139,19 @@ namespace Bomb.View
 
         protected override void OnOpen(object args = null)
         {
-            this._roomInfoText.text = $"房间号: {Game.Scene.GetComponent<Room>().Num}";
-
+            ReflushRoomInfo();
             Reset();
         }
 
-        private void On(StartGameEvent e)
+        private void ReflushRoomInfo()
+        {
+            var room = Game.Scene.GetComponent<Room>();
+            var gameInfo = room.GetComponent<GameInfo>();
+
+            this._roomInfoText.text = $"房间号: {room.Num} 局数:{gameInfo.Count}/5";
+        }
+
+        private void On(GameStartEvent e)
         {
             this._firendBtn.gameObject.SetActive(e.GameOver);
             this._exitRoomBtn.gameObject.SetActive(e.GameOver);
@@ -155,6 +159,15 @@ namespace Bomb.View
 
             if (e.GameOver)
             {
+                // 先重置UI
+                Reset();
+
+                // 重新显示Player
+                for (int i = 0; i < Game.Scene.GetComponent<Room>().Players.Length; i++)
+                {
+                    EventBus.Publish(new PlayerRoomEvent { Seat = i, Action = PlayerRoomEvent.ActionState.Enter });
+                }
+
                 return;
             }
 
@@ -167,6 +180,9 @@ namespace Bomb.View
             {
                 playerPanel.StartGame();
             }
+
+            // 显示局数
+            ReflushRoomInfo();
         }
 
         private void On(PlayerRoomEvent e)
@@ -220,7 +236,7 @@ namespace Bomb.View
             }
 
             this.handCardPanel.Reset();
-            
+
             this.ShowInteractionUI(false);
         }
     }

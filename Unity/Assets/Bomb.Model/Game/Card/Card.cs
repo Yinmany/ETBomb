@@ -21,8 +21,14 @@ namespace Bomb
         public override string ToString()
         {
             var colorDesc = this.Color.GetType().GetField(this.Color.ToString()).GetCustomAttribute<DescriptionAttribute>(false);
+
+            return $"{colorDesc?.Description}{GetWeightDesc()}";
+        }
+
+        public string GetWeightDesc()
+        {
             var weightDesc = this.Weight.GetType().GetField(this.Weight.ToString()).GetCustomAttribute<DescriptionAttribute>(false);
-            return $"{colorDesc?.Description}{weightDesc?.Description}";
+            return weightDesc?.Description;
         }
 
         public int CompareTo(Card other)

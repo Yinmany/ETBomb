@@ -12,7 +12,7 @@ namespace Bomb
         protected override async ETTask Run(Session session, TurnMessage message)
         {
             Room room = Game.Scene.GetComponent<Room>();
-            var game = room.GetComponent<GameControllerComponent>();
+            var game = room.GetComponent<GameController>();
 
             // 记录当前出牌
             game.CurrentSeat = message.CurrentSeat;
@@ -40,17 +40,6 @@ namespace Bomb
             if (game.CurrentSeat == LocalPlayerComponent.Instance.Player.SeatIndex)
             {
                 LocalPlayerComponent.Instance.Player.GetComponent<HandCardsComponent>().Reprompt();
-            }
-
-            if (message.GameOver)
-            {
-                var args = new Dialog.Args("游戏", "游戏结束");
-                args.OkAction = () =>
-                {
-                    EventBus.Publish(new StartGameEvent { GameOver = true });
-                    Dialog.Close();
-                };
-                Dialog.Open(args);
             }
 
             EventBus.Publish(new TurnGameEvent());

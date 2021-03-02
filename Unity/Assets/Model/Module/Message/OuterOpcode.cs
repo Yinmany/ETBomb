@@ -24,9 +24,11 @@ namespace ET
 		 public const ushort PlayerEnterRoom = 20020;
 		 public const ushort PlayerExitRoom = 20021;
 		 public const ushort CardProto = 20022;
-		 public const ushort HandCardsMessage = 20023;
-		 public const ushort TeamMessage = 20024;
-		 public const ushort TurnMessage = 20025;
-		 public const ushort RoundEndMessage = 20026;
+		 public const ushort GameStartMessage = 20023;
+		 public const ushort HandCardMessage = 20024;
+		 public const ushort TeamMessage = 20025;
+		 public const ushort TurnMessage = 20026;
+		 public const ushort RoundEndMessage = 20027;
+		 public const ushort ScoreMessage = 20028;
 	}
 }

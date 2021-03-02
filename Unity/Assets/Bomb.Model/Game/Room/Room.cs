@@ -17,7 +17,7 @@ namespace Bomb
         /// <summary>
         /// 房间内的每个玩家
         /// </summary>
-        public Player[] Seats = new Player[4];
+        public Player[] Players { get; } = new Player[4];
 
         /// <summary>
         /// 是否已锁定
@@ -54,7 +54,7 @@ namespace Bomb
             Num = 0;
             UId = 0;
 
-            foreach (Player player in this.Seats)
+            foreach (Player player in this.Players)
             {
                 player?.Dispose();
             }

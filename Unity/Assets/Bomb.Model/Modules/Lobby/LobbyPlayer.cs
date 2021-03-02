@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using AkaUI;
 using Bomb.View;
 using ET;
@@ -92,9 +94,15 @@ namespace Bomb
             }
         }
 
-        public async ETTask RoomOp(int op)
+        public async ETTask RoomOp(int op, List<Card> cards = null)
         {
-            var resp = (M2C_RoomOpResponse) await SessionComponent.Instance.Session.Call(new C2M_RoomOpRequest() { Op = op });
+            var msg = new C2M_RoomOpRequest() { Op = op };
+            if (cards != null)
+            {
+                msg.Cards.AddRange(cards.Select(f => new CardProto { Color = (int) f.Color, Weight = (int) f.Weight }));
+            }
+
+            var resp = (M2C_RoomOpResponse) await SessionComponent.Instance.Session.Call(msg);
         }
     }
 }

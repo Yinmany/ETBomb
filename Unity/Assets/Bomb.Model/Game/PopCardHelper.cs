@@ -41,7 +41,7 @@ namespace Bomb
             {
                 return false;
             }
-            
+
             return Pop(info.PopCards, info.PopCardType, info.DesktopCards, info.DesktopCardType);
         }
 
@@ -90,15 +90,9 @@ namespace Bomb
             return handCardCount < 5;
         }
 
-        // 王：王分大小，可以充当任意牌；当手上有四个或四个以上相同的牌时，王才可以当“宝”用，但不能与其它牌配成五十K用，四个王是最大的八炸。  
-        // 王只能当宝用，不能单独出，但4个王可以当最大的8炸出。
+        // 王只能当宝用，不能单独出。
         public static bool CheckRuleJoker(IReadOnlyList<Card> cards, CardType type)
         {
-            if (type == CardType.JokerBoom)
-            {
-                return true;
-            }
-
             switch (type)
             {
                 case CardType.Single:

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Bomb.CardPrompt
@@ -27,7 +28,7 @@ namespace Bomb.CardPrompt
             // 带的牌
             var cards = this.GetTwo(context.AnalyseResults);
 
-            for (int i = 0; i < threeAnalyseResults.Count - 1; i++)
+            for (int i = 0; i < threeAnalyseResults.Count / targetNum; i++)
             {
                 List<Card> tmpCards = new List<Card>();
 
@@ -57,18 +58,24 @@ namespace Bomb.CardPrompt
                 else
                 {
                     // 每两张都和
-                    for (int j = 0; j < cards.Count - 1; j++)
+                    for (int j = 0; j < cards.Count / targetNum; j++)
                     {
+                        List<Card> tmp2 = new List<Card>();
+                        tmp2.AddRange(tmpCards);
+
                         for (int k = j; k < targetNum + j; k++)
                         {
-                            tmpCards.Add(cards[k].Item1);
-                            tmpCards.Add(cards[k].Item2);
-                        }
-                    }
+                            (Card item1, Card item2) = cards[k];
 
-                    if (context.CheckPop(tmpCards))
-                    {
-                        context.Add(tmpCards);
+                            // 添加的带的牌
+                            tmp2.Add(item1);
+                            tmp2.Add(item2);
+                        }
+
+                        if (context.CheckPop(tmp2))
+                        {
+                            context.Add(tmp2);
+                        }
                     }
                 }
             }

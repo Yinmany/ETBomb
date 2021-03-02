@@ -12,18 +12,8 @@ namespace Bomb
     {
         public long GateSessionId { get; private set; }
         public bool IsNetSync { get; set; } = true; // 是否对其发送同步数据
-        private PlayerFlags _flags;
 
-        public PlayerFlags Flags
-        {
-            get => this._flags;
-            set
-            {
-                // 非玩家自动屏蔽消息的发送
-                this.IsNetSync = value == PlayerFlags.Player;
-                this._flags = value;
-            }
-        }
+        public PlayerFlags Flags { get; set; }
 
         public void Awake(long gateSessionId) => this.GateSessionId = gateSessionId;
 
@@ -38,7 +28,7 @@ namespace Bomb
 
             this.GateSessionId = 0;
             this.IsNetSync = true;
-            this._flags = PlayerFlags.Player;
+            this.Flags = PlayerFlags.Player;
         }
     }
 }

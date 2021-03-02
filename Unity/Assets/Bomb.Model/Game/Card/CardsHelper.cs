@@ -276,28 +276,35 @@ namespace Bomb
             }
 
             List<AnalyseResult> analyseResults = AnalyseResult.Analyse(cards);
-            
-            // 3张的牌有几个
-            var tmpResult = analyseResults.Where(f => f.Count >= 3).ToList();
 
-            // 3张牌的个数+每三张带二张牌的个数 刚好等于 需要验证的牌的个数，如果不等于直接false
-            if (tmpResult.Count * 5 != cards.Count)
-            {
-                return false;
-            }
+            // 3张的牌有几个
+            analyseResults = analyseResults.Where(f => f.Count >= 3).ToList();
+
+            // 匹配成功目标个数
+            int targetNum = cards.Count / 5;
+
+            int matchNum = 0;
 
             // 3张的牌的权重依次递增: 3334443456需要给通过，但视图现在显示为：3333444456
-            for (int i = 0; i < tmpResult.Count - 1; i++)
+            // 3335556668
+
+            // 反向判定，按出牌最大的权重算. 3334445556 : 444555
+            for (int i = analyseResults.Count - 1; i > 0; i++)
             {
                 // 排除2
-                if (tmpResult[i + 1].Weight - tmpResult[i].Weight != 1 || tmpResult[i].Weight == CardWeight._2 ||
-                    tmpResult[i + 1].Weight == CardWeight._2)
+                if (analyseResults[i].Weight - analyseResults[i - 1].Weight == 1
+                    && analyseResults[i].Weight != CardWeight._2
+                    && analyseResults[i - 1].Weight != CardWeight._2)
                 {
-                    return false;
+                    matchNum += 2;
+                    if (matchNum == targetNum)
+                    {
+                        return true;
+                    }
                 }
             }
 
-            return true;
+            return false;
         }
 
         /// <summary>
@@ -567,7 +574,30 @@ namespace Bomb
                 {
                     // 需要进行分析，因为特殊牌型:3333344444 3333444456 再排序上是挨着一起的。
                     List<AnalyseResult> analyseResults = AnalyseResult.Analyse(cards);
-                    w = analyseResults.Sum(f => f.Count >= 3? (int) f.Weight * 3 : 0);
+
+                    // 需要计算的次数
+                    int targetNum = cards.Count / 5;
+                    int matchNum = 0;
+                    analyseResults = analyseResults.Where(f => f.Count >= 3).ToList();
+
+                    // 反向求权重，按出牌最大的权重算. 3334445556 : 444555
+                    for (int i = analyseResults.Count - 1; i > 0; i++)
+                    {
+                        // 排除2
+                        if (analyseResults[i].Weight - analyseResults[i - 1].Weight == 1
+                            && analyseResults[i].Weight != CardWeight._2
+                            && analyseResults[i - 1].Weight != CardWeight._2)
+                        {
+                            w += (int) analyseResults[i].Weight * 3;
+                            w += (int) analyseResults[i - 1].Weight * 3;
+                            matchNum += 2;
+                            if (matchNum == targetNum)
+                            {
+                                break;
+                            }
+                        }
+                    }
+
                     break;
                 }
                 case CardType.Boom:

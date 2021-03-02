@@ -50,10 +50,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - preload
-    m_MainAsset: {fileID: 2260651893421459942, guid: cfaeee980deeaff478834f370ba6fb35,
-      type: 3}
-    m_TargetAsset: {fileID: 2260651893421459942, guid: cfaeee980deeaff478834f370ba6fb35,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 423522854214a434e9ea9dfea0a2b5f3
     m_Address: UI/Dialog.prefab
     m_ReadOnly: 0
@@ -61,6 +59,15 @@ MonoBehaviour:
     - preload
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: bb6a70f450135454b88bc7ac3c940c2f
+    m_Address: UI/RoundEndWindow.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - preload
+    m_MainAsset: {fileID: 6140673519003049339, guid: bb6a70f450135454b88bc7ac3c940c2f,
+      type: 3}
+    m_TargetAsset: {fileID: 6140673519003049339, guid: bb6a70f450135454b88bc7ac3c940c2f,
+      type: 3}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: fb22fda593d84b047b20d0ab3b302a70, type: 2}
   m_SchemaSet:

@@ -7,6 +7,7 @@ namespace Bomb
         public override void Awake(Room self, long num, long uid)
         {
             self.Awake(num, uid);
+            self.AddComponent<GameInfo>();
             Log.Debug($"创建房间:num={num}, master={uid}");
 
 #if SERVER

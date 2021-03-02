@@ -6,6 +6,7 @@ namespace Bomb
     {
         public override void Awake(Player self, long a, Room b)
         {
+            self.AddComponent<ScoreComponent>();
             self.Awake(a, b);
         }
     }

@@ -6,13 +6,13 @@ namespace Bomb
     {
         public static void NotPop(this Player self)
         {
-            if (!self.Room.GetComponent<GameControllerComponent>().NotPop(self))
+            if (!self.Room.GetComponent<GameController>().NotPop(self))
             {
                 return;
             }
 
             self.Action = PlayerAction.NotPlay;
-            self.LastPlayCards.Clear();
+            self.LastPlayCards?.Clear();
         }
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace Bomb
         /// <param name="cards">需要出的牌</param>
         public static bool Pop(this Player self, List<Card> cards)
         {
-            return self.Room.GetComponent<GameControllerComponent>().Pop(self, cards);
+            return self.Room.GetComponent<GameController>().Pop(self, cards);
         }
     }
 }

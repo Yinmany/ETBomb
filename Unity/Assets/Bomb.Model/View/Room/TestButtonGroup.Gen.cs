@@ -12,8 +12,9 @@ namespace Bomb.View
         // 字段 
 		private Button _addPlayer;
 		private Button _removePlayer;
-		private Button _testCards;
 		private Button _readyPlayer;
+		private InputField _inputField;
+		private Button _postPlayer;
 
         protected override void OnInit()
         {
@@ -22,8 +23,9 @@ namespace Bomb.View
             // 获取引用
 			_addPlayer = View.Get<Button>("AddPlayer");
 			_removePlayer = View.Get<Button>("RemovePlayer");
-			_testCards = View.Get<Button>("TestCards");
 			_readyPlayer = View.Get<Button>("ReadyPlayer");
+			_inputField = View.Get<InputField>("InputField");
+			_postPlayer = View.Get<Button>("PostPlayer");
 
         }
     }

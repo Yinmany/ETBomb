@@ -112,6 +112,8 @@ message C2M_RoomOpRequest // IActorLocationRequest
     int32 RpcId = 90;
 	int64 ActorId = 93;
 	int32 Op = 1;
+
+	repeated CardProto Cards = 2;
 }
 
 message M2C_RoomOpResponse // IActorLocationResponse
@@ -166,11 +168,17 @@ message CardProto
 	int32 Weight = 2;
 }
 
-message HandCardsMessage // IActorMessage
+message GameStartMessage // IActorMessage
 {
 	int64 ActorId = 94;
-	
+}
+
+message HandCardMessage // IActorMessage
+{
+	int64 ActorId = 94;
+
 	repeated CardProto Cards = 1;
+	int32 Seat = 2;
 }
 
 message TeamMessage // IActorMessage
@@ -193,14 +201,17 @@ message TurnMessage // IActorMessage
 	repeated CardProto DeskCards = 4;
 	int32 DeskCardType = 5;
 	int32 CurrentSeat = 6;
-
-	bool GameOver = 7;
 }
 
 // 回合结束
 message RoundEndMessage // IActorMessage
 {
 	int64 ActorId = 94;
+}
 
-	//TODO 每个玩家手上剩余的牌，需要在客户端显示。
+message ScoreMessage // IActorMessage
+{
+	int64 ActorId = 94;
+	int32  Score = 1;
+	int32 Seat = 2;
 }

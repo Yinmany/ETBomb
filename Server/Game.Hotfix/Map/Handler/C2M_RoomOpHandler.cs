@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using ET;
 
 namespace Bomb
@@ -25,24 +27,38 @@ namespace Bomb
                 case RoomOpType.Destroy:
 
                     break;
+                case RoomOpType.MockCards:
+
+                    var test = player.GetComponent<TestCardComponent>();
+                    if (test == null)
+                    {
+                        test = player.AddComponent<TestCardComponent>();
+                    }
+
+                    test.Cards = message.Cards;
+                    test.Seat = player.SeatIndex;
+                    break;
 
                 case RoomOpType.MockPlayer_Add:
 
                     if (room.TryGetSeatIndex(out int seat))
                     {
                         Player mockPlayer = EntityFactory.Create<Player, long, Room>(room.Domain, 0, room);
-                        mockPlayer.AddComponent<PlayerServer>().Flags = PlayerFlags.Robot;
+                        mockPlayer.AddComponent<MailBoxComponent>().IgnoreNotFondHandlerException = true;
+                        mockPlayer.SeatIndex = seat;
+                        var playerServer = mockPlayer.AddComponent<PlayerServer, long>(mockPlayer.InstanceId);
+                        playerServer.Flags = PlayerFlags.Robot;
                         mockPlayer.AddComponent<RobotProxy>();
                         var mockModel = mockPlayer.AddComponent<PlayerModel>();
                         mockModel.NickName = "T" + RandomHelper.RandomNumber(1, 1000);
-                        room.Enter(mockPlayer, seat);
+                        room.Enter(mockPlayer);
                     }
 
                     break;
                 case RoomOpType.MockPlayer_Remove:
-                    for (int i = 0; i < room.Seats.Length; i++)
+                    for (int i = 0; i < room.Players.Length; i++)
                     {
-                        var p = room.Seats[i];
+                        var p = room.Players[i];
 
                         if (p == null || p.GetComponent<PlayerServer>().Flags == PlayerFlags.Player)
                         {
@@ -55,9 +71,9 @@ namespace Bomb
 
                     break;
                 case RoomOpType.MockPlayer_Ready:
-                    for (int i = 0; i < room.Seats.Length; i++)
+                    for (int i = 0; i < room.Players.Length; i++)
                     {
-                        var p = room.Seats[i];
+                        var p = room.Players[i];
                         if (p == null || p.GetComponent<PlayerServer>().Flags == PlayerFlags.Player)
                         {
                             continue;
@@ -75,7 +91,7 @@ namespace Bomb
             }
 
             reply();
-            
+
             await ETTask.CompletedTask;
         }
     }

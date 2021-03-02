@@ -238,6 +238,9 @@ namespace ET
 		[ProtoMember(1)]
 		public int Op { get; set; }
 
+		[ProtoMember(2)]
+		public List<CardProto> Cards = new List<CardProto>();
+
 	}
 
 	[Message(OuterOpcode.M2C_RoomOpResponse)]
@@ -348,15 +351,27 @@ namespace ET
 
 	}
 
-	[Message(OuterOpcode.HandCardsMessage)]
+	[Message(OuterOpcode.GameStartMessage)]
 	[ProtoContract]
-	public partial class HandCardsMessage: IActorMessage
+	public partial class GameStartMessage: IActorMessage
+	{
+		[ProtoMember(94)]
+		public long ActorId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.HandCardMessage)]
+	[ProtoContract]
+	public partial class HandCardMessage: IActorMessage
 	{
 		[ProtoMember(94)]
 		public long ActorId { get; set; }
 
 		[ProtoMember(1)]
 		public List<CardProto> Cards = new List<CardProto>();
+
+		[ProtoMember(2)]
+		public int Seat { get; set; }
 
 	}
 
@@ -402,9 +417,6 @@ namespace ET
 		[ProtoMember(6)]
 		public int CurrentSeat { get; set; }
 
-		[ProtoMember(7)]
-		public bool GameOver { get; set; }
-
 	}
 
 // 回合结束
@@ -415,8 +427,21 @@ namespace ET
 		[ProtoMember(94)]
 		public long ActorId { get; set; }
 
-//TODO 每个玩家手上剩余的牌，需要在客户端显示。
-//TODO 每个玩家手上剩余的牌，需要在客户端显示。
+	}
+
+	[Message(OuterOpcode.ScoreMessage)]
+	[ProtoContract]
+	public partial class ScoreMessage: IActorMessage
+	{
+		[ProtoMember(94)]
+		public long ActorId { get; set; }
+
+		[ProtoMember(1)]
+		public int Score { get; set; }
+
+		[ProtoMember(2)]
+		public int Seat { get; set; }
+
 	}
 
 }

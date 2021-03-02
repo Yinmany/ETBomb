@@ -4,7 +4,7 @@ using ET;
 
 namespace Bomb
 {
-    public class HandCardsComponentAwakeSystem : AwakeSystem<HandCardsComponent>
+    public class HandCardsComponentAwakeSystem: AwakeSystem<HandCardsComponent>
     {
         public override void Awake(HandCardsComponent self)
         {
@@ -17,13 +17,13 @@ namespace Bomb
     /// </summary>
     public class HandCardsComponent: Entity
     {
-        public List<Card> Cards;
+        public List<Card> Cards { get; } = new List<Card>();
 
-        private CardPromptAnalysis analysis = new CardPromptAnalysis();
+        private readonly CardPromptAnalysis analysis = new CardPromptAnalysis();
 
         private bool _isReprompt = true;
 
-        public int PromptIndex { get; set; }
+        public int PromptIndex { get; private set; }
 
         public void Awake()
         {
@@ -35,6 +35,11 @@ namespace Bomb
             this.analysis.AddLast(new TripleStraightAnalyzer());
             this.analysis.AddLast(new StraightAnalyzer());
             this.analysis.AddLast(new BomAnalyzer());
+        }
+
+        public void Sort()
+        {
+            Cards.Sort();
         }
         
         /// <summary>
@@ -72,7 +77,7 @@ namespace Bomb
 
                 // 调用提示
                 Player player = this.GetParent<Player>();
-                var game = player.Room.GetComponent<GameControllerComponent>();
+                var game = player.Room.GetComponent<GameController>();
                 this.analysis.Run(this.Cards, game.DeskCards, game.DeskCardType);
                 this._isReprompt = false;
             }
@@ -84,6 +89,21 @@ namespace Bomb
 
             this.PromptIndex = (this.PromptIndex + 1) % this.analysis.PrompCardsList.Count;
             return this.analysis.PrompCardsList[this.PromptIndex].Cards;
+        }
+
+        public override void Dispose()
+        {
+            if (this.IsDisposed)
+            {
+                return;
+            }
+
+            base.Dispose();
+
+            Cards.Clear();
+            analysis.Clear();
+            _isReprompt = true;
+            this.PromptIndex = -1;
         }
     }
 }

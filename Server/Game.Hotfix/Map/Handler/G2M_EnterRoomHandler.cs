@@ -16,12 +16,13 @@ namespace Bomb
                 return;
             }
 
-            // 获取用户信息
+            // 获取Player信息并创建Player
             PlayerModel playerModel = await DBComponent.Instance.QueryOne<PlayerModel>(f => f.UId == message.UId);
             Player player = EntityFactory.Create<Player, long, Room>(room.Domain, message.UId, room);
             player.AddComponent<PlayerServer, long>(message.GateSessionId);
             player.AddComponent(playerModel);
             player.AddComponent<MailBoxComponent>();
+            player.SeatIndex = index;
             await player.AddLocation();
             Log.Debug($"Player: Model={playerModel.ToJson()} ");
 
@@ -33,7 +34,7 @@ namespace Bomb
             reply();
 
             // 会进行房间内的玩家同步
-            room.Enter(player, index);
+            room.Enter(player);
         }
     }
 }
